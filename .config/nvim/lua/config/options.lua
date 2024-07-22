@@ -3,9 +3,5 @@
 -- Add any additional options here
 
 local opt = vim.opt
-
 opt.wrap = true
-
-opt.relativenumber = false
-
-opt.termguicolors = false
+opt.relativenumber = false -- Relative line numbers
