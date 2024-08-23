@@ -9,7 +9,7 @@ export OSH='/home/tobin/.oh-my-bash'
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="font"
+OSH_THEME="mairan"
 
 # If you set OSH_THEME to "random", you can ignore themes you don't like.
 # OMB_THEME_RANDOM_IGNORED=("powerbash10k" "wanelo")
@@ -149,7 +149,8 @@ alias wp='sh /home/tobin/rice/my_suckless_files/wp.sh'
 alias chrome='/usr/bin/google-chrome-stable'
 alias r8168='sudo modprobe r8168'
 alias b="vi /home/tobin/.bashrc"
-alias bs="source /bashrc"
+alias bs="source /home/tobin/.bashrc"
+alias 88='sudo modprobe 88XXau'
 echo ""
 neofetch
 
