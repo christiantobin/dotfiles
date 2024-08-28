@@ -1,7 +1,7 @@
 # Enable the subsequent settings only in interactive sessions
 case $- in
-  *i*) ;;
-    *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # Path to your oh-my-bash installation.
@@ -9,7 +9,7 @@ export OSH='/home/tobin/.oh-my-bash'
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="font"
+OSH_THEME="mairan"
 
 # If you set OSH_THEME to "random", you can ignore themes you don't like.
 # OMB_THEME_RANDOM_IGNORED=("powerbash10k" "wanelo")
@@ -145,10 +145,16 @@ source "$OSH"/oh-my-bash.sh
 alias p='sudo pacman'
 alias vi='nvim'
 alias dotfs='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias wp='sh /home/tobin/rice/my_suckless_files/wp.sh'
+alias chrome='/usr/bin/google-chrome-stable'
+alias r8168='sudo modprobe r8168'
+alias b="vi /home/tobin/.bashrc"
+alias bs="source /home/tobin/.bashrc"
+alias 88='sudo modprobe 88XXau'
 echo ""
 neofetch
 
 export PATH="$PATH:/home/tobin/.local/bin"
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
