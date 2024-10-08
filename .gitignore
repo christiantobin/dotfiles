@@ -1,0 +1,4 @@
+!.config/*
+!.bashrc
+!.xinitrc
+*
