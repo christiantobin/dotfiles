@@ -13,7 +13,7 @@ return {
     },
     opts = {
         -- configuration goes here
-        lang = "typescript",
+        lang = "cpp",
         image_support = false,
     },
 }

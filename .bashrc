@@ -87,6 +87,10 @@ completions=(
   git
   composer
   ssh
+  awscli
+  gh
+  nvm
+  npm
 )
 
 # Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
@@ -104,6 +108,7 @@ aliases=(
 plugins=(
   git
   bashmarks
+  aws
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -120,6 +125,7 @@ source "$OSH"/oh-my-bash.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
