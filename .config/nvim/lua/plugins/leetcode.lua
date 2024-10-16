@@ -13,7 +13,7 @@ return {
     },
     opts = {
         -- configuration goes here
-        lang = "cpp",
+        lang = "c",
         image_support = false,
     },
 }
