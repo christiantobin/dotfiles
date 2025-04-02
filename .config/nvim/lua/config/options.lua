@@ -5,6 +5,3 @@
 local opt = vim.opt
 opt.wrap = true
 opt.relativenumber = false -- Relative line numbers
-
-vim.api.nvim_set_keymap("n", "<leader>th", ":sp | term<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>tv", ":vsp | term<CR>", { noremap = true, silent = true })
