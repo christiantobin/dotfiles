@@ -8,12 +8,13 @@ return {
 
         -- optional
         "nvim-treesitter/nvim-treesitter",
-        "rcarriga/nvim-notify",
         "nvim-tree/nvim-web-devicons",
     },
     opts = {
         -- configuration goes here
-        lang = "c",
+        lang = "javascript",
         image_support = false,
+        max_width_window_percentage = 100,
+        window_overlap_clear_enabled = true,
     },
 }
