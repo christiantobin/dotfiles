@@ -85,7 +85,7 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
@@ -100,17 +100,15 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="$PATH:/Users/christiantobin/.pub-cache/bin:/usr/local/bin/code:/Users/christiantobin/fvm/default/bin"
-prompt_context() {}
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
-
 alias clera='clear'
 alias claer='clear'
 alias cls='clear'
 alias celar='clear'
 alias terminal=kitty
-alias b="nvim ~/.zshrc"
-alias bs="source ~/.zshrc"
 
 export PATH="$HOME/.cargo/bin:$PATH"
+alias dotfs='/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'
+alias lazydot='/usr/local/bin/lazygit --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'
+alias vi='nvim'
+alias b="vi $HOME/.zshrc"
+alias bs="source $HOME/.zshrc"
