@@ -150,7 +150,6 @@ export LANG=en_US.UTF-8
 # alias ohmybash="mate ~/.oh-my-bash"
 alias p='sudo pacman'
 alias vi='nvim'
-alias dotfs='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias wp='sh /home/tobin/rice/my_suckless_files/wp.sh'
 alias chrome='/usr/bin/google-chrome-stable'
 alias r8168='sudo modprobe r8168'
@@ -164,3 +163,13 @@ export PATH="$PATH:/home/tobin/.local/bin"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+alias celar='clear'
+alias clera='clear'
+alias cls='clear'
+alias qq='clear'
+alias b='nvim /home/cjtobin/.bashrc'
+alias dotfs='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias lazydot='/usr/bin/lazygit --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias bs='clear && source /home/cjtobin/.bashrc'
+alias ls='lsd'
+alias disk='ncdu'
