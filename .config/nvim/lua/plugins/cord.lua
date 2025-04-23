@@ -1,4 +1,6 @@
 return {
-    "IogaMaster/neocord",
-    event = "VeryLazy",
+    "andweeb/presence.nvim",
+    opts = {
+        show_time = false,
+    },
 }
