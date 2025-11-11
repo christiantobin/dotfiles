@@ -12,3 +12,9 @@ vim.api.nvim_set_keymap("v", "<Up>", "<Nop>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<Down>", "<Nop>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<Left>", "<Nop>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<Right>", "<Nop>", { noremap = true, silent = true })
+
+-- Remove CFLR in my current file
+vim.keymap.set("n", "<leader>cv", function()
+    vim.cmd("%s/\\r//g")
+    vim.cmd("write")
+end, { desc = "Clean ^M and save file" })
