@@ -1,22 +1,24 @@
+/* Catppuccin Mocha — matching BlackNode theme */
+
 window {
-    background-color: #020914;
-    border: none;
-    border-radius: 0px;
+    background-color: #1e1e2e;
+    border: 2px solid #cba6f7;
+    border-radius: 10px;
     font-family: "Hack Nerd Font", monospace;
     font-size: 14px;
 }
 
 #input {
-    background-color: #020914;
-    color: #f1be9b;
+    background-color: #181825;
+    color: #cdd6f4;
     border: none;
-    border-bottom: 1px solid #565879;
+    border-bottom: 2px solid #45475a;
+    border-radius: 10px 10px 0 0;
     padding: 8px 12px;
 }
 
 #input:focus {
-    border: none;
-    border-bottom: 1px solid #DA6748;
+    border-bottom: 2px solid #cba6f7;
 }
 
 #outer-box {
@@ -31,18 +33,19 @@ window {
 
 #entry {
     padding: 6px 12px;
-    color: #f1be9b;
+    color: #cdd6f4;
 }
 
 #entry:selected {
-    background-color: #565879;
-    color: #f1be9b;
+    background-color: #313244;
+    color: #cba6f7;
+    border-radius: 8px;
 }
 
 #text {
-    color: #f1be9b;
+    color: #bac2de;
 }
 
 #text:selected {
-    color: #f1be9b;
+    color: #cba6f7;
 }
