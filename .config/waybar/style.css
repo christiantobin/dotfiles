@@ -1,0 +1,53 @@
+* {
+    font-family: "Hack Nerd Font", monospace;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(53, 111, 227, 0.85);
+    color: #FEE884;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: #FEE884;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+}
+
+#workspaces button.active {
+    background: rgba(202, 53, 9, 0.85);
+    color: #FFD0B5;
+}
+
+#workspaces button:hover {
+    background: rgba(38, 70, 107, 0.6);
+}
+
+#window {
+    padding: 0 12px;
+    color: #FEE884;
+}
+
+#clock,
+#battery,
+#network,
+#pulseaudio,
+#backlight {
+    padding: 0 12px;
+    color: #FEE884;
+}
+
+#battery.warning {
+    color: #FFA500;
+}
+
+#battery.critical {
+    color: #ff4444;
+}
+
+#pulseaudio.muted {
+    color: #888888;
+}

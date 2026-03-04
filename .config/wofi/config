@@ -1,0 +1,12 @@
+show=drun
+width=400
+height=300
+lines=10
+columns=1
+location=0
+allow_markup=true
+allow_images=false
+insensitive=true
+prompt=
+no_actions=true
+layer=overlay
