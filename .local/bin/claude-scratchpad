@@ -1,0 +1,12 @@
+#!/bin/bash
+# Toggle Claude scratchpad — launch if not running, toggle if it is
+
+if hyprctl clients -j | grep -q '"class": "claude-code"'; then
+    hyprctl dispatch togglespecialworkspace claude
+else
+    # Unset CLAUDECODE to avoid "nested session" error when launched from within claude
+    env -u CLAUDECODE alacritty --class claude-code -e /home/christian/.local/bin/claude &
+    disown
+    sleep 0.8
+    hyprctl dispatch togglespecialworkspace claude
+fi
