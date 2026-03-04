@@ -1,47 +1,50 @@
 @import "mocha.css";
 
 * {
+    background-color: transparent;
+    color: @text;
+    border: none;
+    border-radius: 0;
     min-height: 0;
     font-family: "JetBrainsMono Nerd Font", "Hack Nerd Font", monospace;
     font-size: 14px;
 }
 
-#waybar {
-    background-color: @base;
-    border-radius: 10px;
-    padding: 0 8px;
+window#waybar {
+    background-color: alpha(@base, 0.9);
 }
 
-#waybar .module {
-    color: @text;
-    padding: 0 8px;
+.modules-left {
+    margin: 8px 0px 8px 10px;
+}
+
+.modules-right {
+    margin: 8px 10px 8px 0px;
 }
 
 #workspaces button {
-    box-shadow: none;
-    text-shadow: none;
+    all: initial;
     padding: 0 6px;
-    border-radius: 8px;
-    margin: 3px 2px;
+    margin: 0 1.5px;
+    min-width: 9px;
     color: @text;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+}
+
+#workspaces button.empty {
+    opacity: 0.5;
 }
 
 #workspaces button.active {
-    background: @mauve;
-    color: @crust;
-    border-radius: 8px;
-    padding: 0 8px;
+    color: @mauve;
 }
 
-#workspaces button:hover {
-    background: @surface0;
-    color: @text;
-}
-
+#custom-window,
+#custom-window label,
 #window,
 #window label {
-    color: #cdd6f4;
-    padding: 0 12px;
+    color: @text;
 }
 
 window#waybar.empty #window {
@@ -88,4 +91,25 @@ window#waybar.empty #window {
 
 #mpris {
     color: @green;
+}
+
+#cpu,
+#pulseaudio,
+#network,
+#clock,
+#battery,
+#custom-window,
+#backlight,
+#wireplumber,
+#mpris {
+    margin: 0 8px;
+}
+
+tooltip {
+    background-color: alpha(@base, 0.9);
+    padding: 20px;
+}
+
+tooltip label {
+    color: @text;
 }
