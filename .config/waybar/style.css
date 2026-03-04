@@ -2,88 +2,90 @@
 
 * {
     min-height: 0;
-    font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "JetBrainsMono Nerd Font", "Hack Nerd Font", monospace;
     font-size: 14px;
 }
-/* Waybar */
+
 #waybar {
-    background-color: transparent;
+    background-color: @base;
+    border-radius: 10px;
+    padding: 0 8px;
 }
 
 #waybar .module {
     color: @text;
-    padding: 0px 0px;
-    margin: -10px 5px -10px;
-    border: 2px;
+    padding: 0 8px;
 }
-
-#waybar .module:hover {
-    color: @subtext1;
-
-}
-
-#window#waybar {
-    color: @text;
-    background-color: @base;
-    transition-property:  background-color;
-    transition-duration: 0.5s;
-    border: 2px solid @mauve;
-}
-
-
 
 #workspaces button {
     box-shadow: none;
     text-shadow: none;
-    padding: 0px;
+    padding: 0 6px;
     border-radius: 8px;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    margin-left: 0px;
-    padding-left: 3px;
-    padding-right: 3px;
-    margin-right: 0px;
+    margin: 3px 2px;
     color: @text;
-    animation: ws_normal 20s ease-in-out 1;
 }
 
 #workspaces button.active {
     background: @mauve;
     color: @crust;
-    border-radius:  10.5pt;
-    margin-left: 0px;
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-right: 0px;
-    animation: ws_active 20s ease-in-out 1;
-    transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
+    border-radius: 8px;
+    padding: 0 8px;
 }
 
 #workspaces button:hover {
-    background: @mantle;
+    background: @surface0;
     color: @text;
-    animation: ws_hover 20s ease-in-out 1;
-    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
-#hollow-right-5,
-#hollow-center-1,
-#hollow-left-1,
-#hollow-left-4,
-#hollow-right-4,
-#hollow-left-5,
-#hollow-right-3,
-#hollow-right-1,
-#hollow-right-2 {
-  background: #1e1e2e;
-  border-radius: 10.5pt;
-  padding: 8px;
+#window,
+#window label {
+    color: #cdd6f4;
+    padding: 0 12px;
 }
 
-#hollow-left-2 {
-  background: @base;
-  border-radius: 10.5pt;
-
+window#waybar.empty #window {
+    min-width: 0;
+    padding: 0;
 }
 
+#clock {
+    color: @text;
+    font-weight: bold;
+}
 
+#battery {
+    color: @green;
+}
+
+#battery.warning {
+    color: @yellow;
+}
+
+#battery.critical {
+    color: @red;
+}
+
+#network {
+    color: @sapphire;
+}
+
+#network.disconnected {
+    color: @overlay0;
+}
+
+#wireplumber {
+    color: @lavender;
+}
+
+#wireplumber.muted {
+    color: @overlay0;
+}
+
+#backlight {
+    color: @yellow;
+}
+
+#mpris {
+    color: @green;
+}
