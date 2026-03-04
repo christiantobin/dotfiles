@@ -27,17 +27,14 @@ window#waybar {
     padding: 0 6px;
     margin: 0 1.5px;
     min-width: 9px;
-    color: @text;
+    color: @overlay0;
     font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 14px;
 }
 
-#workspaces button.empty {
-    opacity: 0.5;
-}
-
 #workspaces button.active {
     color: @mauve;
+    font-weight: bold;
 }
 
 #custom-window,
