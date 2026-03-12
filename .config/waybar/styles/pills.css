@@ -12,29 +12,38 @@
 }
 
 window#waybar {
-    background-color: alpha(@base, 0.9);
+    background-color: alpha(@base, 0.8);
 }
 
 .modules-left {
-    margin: 8px 0px 8px 10px;
+    margin: 6px 0px 6px 8px;
 }
 
 .modules-right {
-    margin: 8px 10px 8px 0px;
+    margin: 6px 8px 6px 0px;
+}
+
+#workspaces {
+    background-color: alpha(@base, 0.6);
+    border-radius: 15px;
+    padding: 2px 6px;
+    margin: 2px 4px;
 }
 
 #workspaces button {
     all: initial;
-    padding: 0 6px;
-    margin: 0 1.5px;
+    padding: 0 8px;
+    margin: 0 2px;
     min-width: 9px;
     color: @overlay0;
     font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 14px;
+    border-radius: 15px;
 }
 
 #workspaces button.active {
-    color: @mauve;
+    color: @base;
+    background-color: @mauve;
     font-weight: bold;
 }
 
@@ -48,6 +57,20 @@ window#waybar {
 window#waybar.empty #window {
     min-width: 0;
     padding: 0;
+}
+
+#clock,
+#battery,
+#network,
+#wireplumber,
+#backlight,
+#mpris,
+#cpu,
+#pulseaudio {
+    background-color: alpha(@base, 0.6);
+    border-radius: 15px;
+    padding: 2px 12px;
+    margin: 2px 3px;
 }
 
 #clock {
@@ -65,6 +88,7 @@ window#waybar.empty #window {
 
 #battery.critical {
     color: @red;
+    background-color: alpha(@red, 0.2);
 }
 
 #network {
@@ -91,20 +115,10 @@ window#waybar.empty #window {
     color: @green;
 }
 
-#cpu,
-#pulseaudio,
-#network,
-#clock,
-#battery,
-#custom-window,
-#backlight,
-#wireplumber,
-#mpris {
-    margin: 0 8px;
-}
-
 tooltip {
     background-color: alpha(@base, 0.9);
+    border: 1px solid @overlay0;
+    border-radius: 10px;
     padding: 20px;
 }
 

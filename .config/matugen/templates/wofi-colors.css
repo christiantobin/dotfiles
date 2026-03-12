@@ -1,0 +1,14 @@
+/* Matugen-generated wofi colors */
+/* Do not edit — regenerated on wallpaper change */
+
+@define-color bg {{colors.surface.default.hex}};
+@define-color fg {{colors.on_surface.default.hex}};
+@define-color input-bg {{colors.surface_variant.default.hex}};
+@define-color input-fg {{colors.on_surface.default.hex}};
+@define-color input-border {{colors.outline.default.hex}};
+@define-color input-border-focus {{colors.primary.default.hex}};
+@define-color entry-selected-bg {{colors.primary_container.default.hex}};
+@define-color entry-selected-fg {{colors.on_primary_container.default.hex}};
+@define-color text {{colors.on_surface_variant.default.hex}};
+@define-color text-selected {{colors.primary.default.hex}};
+@define-color accent {{colors.primary.default.hex}};

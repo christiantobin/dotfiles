@@ -1,0 +1,52 @@
+# Matugen-generated alacritty colors
+# Do not edit — regenerated on wallpaper change
+
+[colors.primary]
+background = "#101418"
+foreground = "#e1e2e8"
+dim_foreground = "#8d9199"
+bright_foreground = "#e1e2e8"
+
+[colors.cursor]
+text = "#101418"
+cursor = "#9fcafd"
+
+[colors.vi_mode_cursor]
+text = "#101418"
+cursor = "#d6bee5"
+
+[colors.search.matches]
+foreground = "#101418"
+background = "#8d9199"
+
+[colors.search.focused_match]
+foreground = "#101418"
+background = "#9fcafd"
+
+[colors.footer_bar]
+foreground = "#101418"
+background = "#8d9199"
+
+[colors.selection]
+text = "#101418"
+background = "#184974"
+
+[colors.normal]
+black = "#42474e"
+red = "#ffb4ab"
+green = "#9fcafd"
+yellow = "#bac8db"
+blue = "#d6bee5"
+magenta = "#524060"
+cyan = "#184974"
+white = "#c3c7cf"
+
+[colors.bright]
+black = "#8d9199"
+red = "#ffb4ab"
+green = "#9fcafd"
+yellow = "#bac8db"
+blue = "#d6bee5"
+magenta = "#524060"
+cyan = "#184974"
+white = "#e1e2e8"

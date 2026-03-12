@@ -1,0 +1,83 @@
+@import "colors.rasi"
+
+configuration {
+    modi: "drun,run,filebrowser";
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    font: "JetBrainsMono Nerd Font 12";
+    display-drun: " Apps";
+    display-run: " Run";
+    display-filebrowser: " Files";
+    drun-display-format: "{name}";
+}
+
+* {
+    border-radius: 8px;
+}
+
+window {
+    width: 600px;
+    background-color: @bg;
+    border: 2px solid;
+    border-color: @accent;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+mainbox {
+    background-color: transparent;
+    children: [inputbar, listview];
+}
+
+inputbar {
+    background-color: @bg-alt;
+    padding: 8px 12px;
+    margin: 0 0 8px 0;
+    border-radius: 8px;
+    children: [prompt, entry];
+}
+
+prompt {
+    background-color: transparent;
+    color: @accent;
+    margin: 0 8px 0 0;
+}
+
+entry {
+    background-color: transparent;
+    color: @fg;
+    placeholder: "Search...";
+    placeholder-color: @fg-alt;
+}
+
+listview {
+    background-color: transparent;
+    lines: 8;
+    columns: 1;
+    spacing: 4px;
+}
+
+element {
+    background-color: transparent;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+element selected {
+    background-color: @selected-bg;
+}
+
+element-text {
+    background-color: transparent;
+    color: @fg;
+}
+
+element-text selected {
+    color: @selected-fg;
+}
+
+element-icon {
+    background-color: transparent;
+    size: 24px;
+    margin: 0 8px 0 0;
+}

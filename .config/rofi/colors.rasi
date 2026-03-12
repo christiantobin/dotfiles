@@ -1,0 +1,14 @@
+/* Matugen-generated rofi colors */
+/* Do not edit — regenerated on wallpaper change */
+
+* {
+    bg:             #101418;
+    bg-alt:         #42474e;
+    fg:             #e1e2e8;
+    fg-alt:         #c3c7cf;
+    accent:         #9fcafd;
+    accent-alt:     #184974;
+    urgent:         #ffb4ab;
+    selected-bg:    #184974;
+    selected-fg:    #d1e4ff;
+}

@@ -1,24 +1,26 @@
-/* Catppuccin Mocha — matching BlackNode theme */
+@import "colors.css";
+
+/* Catppuccin Mocha fallback — overridden by matugen colors.css */
 
 window {
-    background-color: #1e1e2e;
-    border: 2px solid #cba6f7;
+    background-color: @bg, #1e1e2e;
+    border: 2px solid @accent, #cba6f7;
     border-radius: 10px;
     font-family: "Hack Nerd Font", monospace;
     font-size: 14px;
 }
 
 #input {
-    background-color: #181825;
-    color: #cdd6f4;
+    background-color: @input-bg, #181825;
+    color: @input-fg, #cdd6f4;
     border: none;
-    border-bottom: 2px solid #45475a;
+    border-bottom: 2px solid @input-border, #45475a;
     border-radius: 10px 10px 0 0;
     padding: 8px 12px;
 }
 
 #input:focus {
-    border-bottom: 2px solid #cba6f7;
+    border-bottom: 2px solid @input-border-focus, #cba6f7;
 }
 
 #outer-box {
@@ -33,19 +35,19 @@ window {
 
 #entry {
     padding: 6px 12px;
-    color: #cdd6f4;
+    color: @fg, #cdd6f4;
 }
 
 #entry:selected {
-    background-color: #313244;
-    color: #cba6f7;
+    background-color: @entry-selected-bg, #313244;
+    color: @entry-selected-fg, #cba6f7;
     border-radius: 8px;
 }
 
 #text {
-    color: #bac2de;
+    color: @text, #bac2de;
 }
 
 #text:selected {
-    color: #cba6f7;
+    color: @text-selected, #cba6f7;
 }
