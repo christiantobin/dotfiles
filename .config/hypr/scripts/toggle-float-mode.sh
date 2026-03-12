@@ -2,15 +2,45 @@
 # Toggle workspace between float mode and tiled mode (dwm-style)
 # Remembers floating window positions/sizes per workspace
 # Auto-detects portrait monitors for correct tiling orientation
+# New windows in float mode open small and centered via IPC listener
 
 CACHE_DIR="/tmp/hypr-float-cache"
-mkdir -p "$CACHE_DIR"
+STATE_DIR="$CACHE_DIR/state"
+LISTENER_PID_FILE="$CACHE_DIR/listener.pid"
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+mkdir -p "$CACHE_DIR" "$STATE_DIR"
 
 # Get active workspace ID
 WORKSPACE=$(hyprctl activeworkspace | awk '/^workspace ID/{print $3}')
 CACHE_FILE="$CACHE_DIR/ws-$WORKSPACE"
+STATE_FILE="$STATE_DIR/ws-$WORKSPACE"
 
-# Parse all windows on this workspace: address, position, size, float state
+# --- Listener management ---
+start_listener() {
+    if [ -f "$LISTENER_PID_FILE" ] && kill -0 "$(cat "$LISTENER_PID_FILE")" 2>/dev/null; then
+        return
+    fi
+    python3 "$SCRIPT_DIR/float-mode-listener.py" &
+    echo $! > "$LISTENER_PID_FILE"
+    disown
+}
+
+stop_listener() {
+    if [ -f "$LISTENER_PID_FILE" ]; then
+        kill "$(cat "$LISTENER_PID_FILE")" 2>/dev/null
+        rm -f "$LISTENER_PID_FILE"
+    fi
+}
+
+ensure_listener() {
+    if ls "$STATE_DIR"/ws-* &>/dev/null; then
+        start_listener
+    else
+        stop_listener
+    fi
+}
+
+# --- Parse windows on current workspace ---
 declare -A WIN_AT WIN_SIZE
 WINDOWS=()
 FLOATING_COUNT=0
@@ -23,7 +53,6 @@ w_size=""
 
 while IFS= read -r line; do
     if [[ "$line" =~ ^Window\ ([a-f0-9]+) ]]; then
-        # Save previous window if it was on our workspace
         if [[ "$on_ws" == 2 ]]; then
             WINDOWS+=("$addr")
             WIN_AT[$addr]="$w_at"
@@ -43,18 +72,30 @@ while IFS= read -r line; do
         on_ws=2
     fi
 done < <(hyprctl clients)
-# Don't forget the last window
 if [[ "$on_ws" == 2 ]]; then
     WINDOWS+=("$addr")
     WIN_AT[$addr]="$w_at"
     WIN_SIZE[$addr]="$w_size"
 fi
 
-[ "$TOTAL" -eq 0 ] && exit 0
+# --- Toggle ---
+# Empty workspace: toggle state only
+if [ "$TOTAL" -eq 0 ]; then
+    if [ -f "$STATE_FILE" ]; then
+        rm "$STATE_FILE"
 
-# If majority floating -> tile all, otherwise float all
+    else
+        touch "$STATE_FILE"
+        fi
+    ensure_listener
+    exit 0
+fi
+
 if [ "$FLOATING_COUNT" -gt $(( TOTAL / 2 )) ]; then
-    # Switching to tiled: save current float positions/sizes
+    # --- Switch to tiled ---
+    rm -f "$STATE_FILE"
+
+    # Save float positions/sizes
     > "$CACHE_FILE"
     for addr in "${WINDOWS[@]}"; do
         echo "$addr ${WIN_AT[$addr]} ${WIN_SIZE[$addr]}" >> "$CACHE_FILE"
@@ -64,7 +105,9 @@ if [ "$FLOATING_COUNT" -gt $(( TOTAL / 2 )) ]; then
         hyprctl dispatch settiled "address:0x$addr"
     done
 
-    # Set correct tiling orientation based on monitor aspect ratio
+    hyprctl keyword workspace "$WORKSPACE,defaultFloat:0"
+
+    # Auto-detect orientation
     read -r WIDTH HEIGHT < <(hyprctl monitors | awk '/focused: yes/{found=1} found && /\tx/{gsub(/[^0-9x]/,""); split($0,a,"x"); print a[1], a[2]; exit}')
     if [ -n "$HEIGHT" ] && [ -n "$WIDTH" ] && [ "$HEIGHT" -gt "$WIDTH" ]; then
         hyprctl dispatch layoutmsg orientationtop
@@ -72,7 +115,10 @@ if [ "$FLOATING_COUNT" -gt $(( TOTAL / 2 )) ]; then
         hyprctl dispatch layoutmsg orientationleft
     fi
 else
-    # Switching to float: restore saved positions if available
+    # --- Switch to float ---
+    touch "$STATE_FILE"
+
+    # Restore saved positions if available
     declare -A SAVED_AT SAVED_SIZE
     if [ -f "$CACHE_FILE" ]; then
         while read -r saddr sat ssize; do
@@ -92,4 +138,7 @@ else
             hyprctl dispatch movewindowpixel "exact $x $y,address:0x$addr"
         fi
     done
+
 fi
+
+ensure_listener
