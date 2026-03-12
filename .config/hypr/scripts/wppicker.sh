@@ -29,7 +29,7 @@ if [ ! -f "$WALLPAPER_PATH" ]; then
 fi
 
 # Run matugen — sets wallpaper via swww and generates all color configs
-matugen --source-color-index 0 image "$WALLPAPER_PATH"
+matugen --source-color-index 0 --contrast 0.5 -m dark image "$WALLPAPER_PATH"
 
 # Symlink for reference
 ln -sf "$WALLPAPER_PATH" "$HOME/.config/hypr/current_wallpaper"
