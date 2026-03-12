@@ -172,6 +172,7 @@ alias qq='clear'
 alias clea='clear'
 alias sclear='clear'
 alias cl='clear'
+alias discord='webcord'
 
 export PATH="$PATH:$HOME/.local/bin"
 

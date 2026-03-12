@@ -1,0 +1,94 @@
+/* Matugen-generated WebCord theme */
+/* Do not edit — regenerated on wallpaper change */
+
+:root {
+    /* Background — transparent with slight tint */
+    --background-primary: {{colors.surface.default.hex}}cc;
+    --background-secondary: {{colors.surface_container_low.default.hex}}cc;
+    --background-secondary-alt: {{colors.surface_container.default.hex}}cc;
+    --background-tertiary: {{colors.surface_container_lowest.default.hex}}cc;
+    --background-accent: {{colors.primary.default.hex}};
+    --background-floating: {{colors.surface_container.default.hex}}e6;
+    --background-modifier-hover: {{colors.surface_container_high.default.hex}}80;
+    --background-modifier-active: {{colors.surface_container_high.default.hex}}b3;
+    --background-modifier-selected: {{colors.surface_container_high.default.hex}}99;
+    --background-modifier-accent: {{colors.outline_variant.default.hex}}30;
+
+    /* Channels/sidebar */
+    --channeltextarea-background: {{colors.surface_container.default.hex}};
+    --activity-card-background: {{colors.surface_container.default.hex}};
+
+    /* Text */
+    --text-normal: {{colors.on_surface.default.hex}};
+    --text-muted: {{colors.outline.default.hex}};
+    --text-link: {{colors.primary.default.hex}};
+    --header-primary: {{colors.on_surface.default.hex}};
+    --header-secondary: {{colors.on_surface_variant.default.hex}};
+    --interactive-normal: {{colors.on_surface_variant.default.hex}};
+    --interactive-hover: {{colors.on_surface.default.hex}};
+    --interactive-active: {{colors.on_surface.default.hex}};
+    --interactive-muted: {{colors.outline_variant.default.hex}};
+    --channels-default: {{colors.on_surface_variant.default.hex}};
+    --white-500: {{colors.on_surface.default.hex}};
+
+    /* Brand / accent */
+    --brand-experiment: {{colors.primary.default.hex}};
+    --brand-experiment-560: {{colors.primary.default.hex}};
+    --brand-experiment-600: {{colors.primary_container.default.hex}};
+
+    /* Scrollbar */
+    --scrollbar-thin-thumb: {{colors.surface_container_highest.default.hex}};
+    --scrollbar-thin-track: transparent;
+    --scrollbar-auto-thumb: {{colors.surface_container_highest.default.hex}};
+    --scrollbar-auto-track: {{colors.surface_container_low.default.hex}};
+
+    /* Input */
+    --input-background: {{colors.surface_container.default.hex}};
+
+    /* Misc */
+    --modal-background: {{colors.surface_container.default.hex}};
+    --modal-footer-background: {{colors.surface_container_low.default.hex}};
+    --info-positive-foreground: {{colors.primary.default.hex}};
+    --info-danger-foreground: {{colors.error.default.hex}};
+    --status-positive-background: {{colors.primary.default.hex}};
+    --status-danger: {{colors.error.default.hex}};
+    --button-positive-background: {{colors.primary_container.default.hex}};
+    --button-danger-background: {{colors.error_container.default.hex}};
+    --mention-foreground: {{colors.primary.default.hex}};
+    --mention-background: {{colors.primary.default.hex}}15;
+}
+
+/* Transparent body */
+body, html {
+    background: transparent !important;
+}
+
+/* Server list */
+.wrapper_d281dd,
+nav[class*="wrapper_"] {
+    background: {{colors.surface_container_lowest.default.hex}}aa !important;
+}
+
+/* Sidebar / channels */
+.sidebar_a4d4d9,
+div[class*="sidebar_"] {
+    background: {{colors.surface_container_low.default.hex}}bb !important;
+}
+
+/* Chat area */
+.chat_a7d72e,
+div[class*="chat_"] {
+    background: {{colors.surface.default.hex}}bb !important;
+}
+
+/* Member list */
+.members_cbd271,
+div[class*="members_"] {
+    background: {{colors.surface_container_low.default.hex}}bb !important;
+}
+
+/* Title bar */
+.titleBar_a934d8,
+div[class*="titleBar_"] {
+    background: {{colors.surface_container_lowest.default.hex}}cc !important;
+}

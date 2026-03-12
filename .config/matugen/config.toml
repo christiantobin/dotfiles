@@ -42,10 +42,9 @@ output_path = "~/.config/wofi/colors.css"
 input_path = "~/.config/matugen/templates/rofi-colors.rasi"
 output_path = "~/.config/rofi/colors.rasi"
 
-[templates.swaync]
-input_path = "~/.config/matugen/templates/swaync-colors.css"
-output_path = "~/.config/swaync/style.css"
-post_hook = "swaync-client -rs"
+[templates.webcord]
+input_path = "~/.config/matugen/templates/webcord-theme.css"
+output_path = "~/.config/WebCord/Themes/matugen.css"
 
 [templates.mako]
 input_path = "~/.config/matugen/templates/mako-config"

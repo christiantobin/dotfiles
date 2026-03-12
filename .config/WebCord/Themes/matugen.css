@@ -1,0 +1,94 @@
+/* Matugen-generated WebCord theme */
+/* Do not edit — regenerated on wallpaper change */
+
+:root {
+    /* Background — transparent with slight tint */
+    --background-primary: #1a110fcc;
+    --background-secondary: #251b19cc;
+    --background-secondary-alt: #302623cc;
+    --background-tertiary: #0d0604cc;
+    --background-accent: #ffd3c6;
+    --background-floating: #302623e6;
+    --background-modifier-hover: #3b302d80;
+    --background-modifier-active: #3b302db3;
+    --background-modifier-selected: #3b302d99;
+    --background-modifier-accent: #a08c8730;
+
+    /* Channels/sidebar */
+    --channeltextarea-background: #302623;
+    --activity-card-background: #302623;
+
+    /* Text */
+    --text-normal: #ffffff;
+    --text-muted: #c2ada8;
+    --text-link: #ffd3c6;
+    --header-primary: #ffffff;
+    --header-secondary: #eed7d1;
+    --interactive-normal: #eed7d1;
+    --interactive-hover: #ffffff;
+    --interactive-active: #ffffff;
+    --interactive-muted: #a08c87;
+    --channels-default: #eed7d1;
+    --white-500: #ffffff;
+
+    /* Brand / accent */
+    --brand-experiment: #ffd3c6;
+    --brand-experiment-560: #ffd3c6;
+    --brand-experiment-600: #cb7c65;
+
+    /* Scrollbar */
+    --scrollbar-thin-thumb: #463b38;
+    --scrollbar-thin-track: transparent;
+    --scrollbar-auto-thumb: #463b38;
+    --scrollbar-auto-track: #251b19;
+
+    /* Input */
+    --input-background: #302623;
+
+    /* Misc */
+    --modal-background: #302623;
+    --modal-footer-background: #251b19;
+    --info-positive-foreground: #ffd3c6;
+    --info-danger-foreground: #ffd2cc;
+    --status-positive-background: #ffd3c6;
+    --status-danger: #ffd2cc;
+    --button-positive-background: #cb7c65;
+    --button-danger-background: #ff5449;
+    --mention-foreground: #ffd3c6;
+    --mention-background: #ffd3c615;
+}
+
+/* Transparent body */
+body, html {
+    background: transparent !important;
+}
+
+/* Server list */
+.wrapper_d281dd,
+nav[class*="wrapper_"] {
+    background: #0d0604aa !important;
+}
+
+/* Sidebar / channels */
+.sidebar_a4d4d9,
+div[class*="sidebar_"] {
+    background: #251b19bb !important;
+}
+
+/* Chat area */
+.chat_a7d72e,
+div[class*="chat_"] {
+    background: #1a110fbb !important;
+}
+
+/* Member list */
+.members_cbd271,
+div[class*="members_"] {
+    background: #251b19bb !important;
+}
+
+/* Title bar */
+.titleBar_a934d8,
+div[class*="titleBar_"] {
+    background: #0d0604cc !important;
+}
