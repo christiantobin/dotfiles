@@ -11,6 +11,9 @@ STATE_DIR = "/tmp/hypr-float-cache/state"
 FLOAT_W = "50%"
 FLOAT_H = "50%"
 
+# Window classes to ignore (overlay windows, popups, etc.)
+IGNORE_CLASSES = {"ueberzugpp", "ueberzug"}
+
 SOCK_PATH = os.path.join(
     os.environ["XDG_RUNTIME_DIR"],
     "hypr",
@@ -26,9 +29,11 @@ def hyprctl(*args):
 def handle_openwindow(data):
     # Format: addr,workspace,class,title
     parts = data.split(",", 3)
-    if len(parts) < 2:
+    if len(parts) < 3:
         return
-    addr, ws = parts[0], parts[1]
+    addr, ws, wclass = parts[0], parts[1], parts[2]
+    if wclass.lower() in IGNORE_CLASSES:
+        return
     state_file = os.path.join(STATE_DIR, f"ws-{ws}")
     if os.path.exists(state_file):
         time.sleep(0.05)

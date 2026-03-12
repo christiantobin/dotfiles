@@ -1,0 +1,25 @@
+font=JetBrainsMono Nerd Font 11
+width=300
+height=100
+margin=10
+padding=12
+border-size=2
+border-radius=10
+border-color=#a08c87
+background-color=#302623f2
+text-color=#ffffff
+default-timeout=5000
+max-visible=3
+layer=overlay
+anchor=top-right
+icon-path=/usr/share/icons
+max-icon-size=48
+markup=1
+
+[urgency=low]
+border-color=#53433f
+default-timeout=3000
+
+[urgency=critical]
+border-color=#ffd2cc
+default-timeout=0

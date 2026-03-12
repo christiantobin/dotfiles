@@ -1,5 +1,4 @@
 * {
-    all: unset;
     font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 14px;
     transition: 200ms;
@@ -154,4 +153,20 @@
 
 .floating-notifications {
     background: transparent;
+}
+
+.floating-notifications.background {
+    background: transparent;
+}
+
+.floating-notifications.background .notification-row .notification-background {
+    background: transparent;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification {
+    background: alpha({{colors.surface_container.default.hex}}, 0.95);
+    border: 1px solid {{colors.outline_variant.default.hex}};
+    border-radius: 10px;
+    padding: 8px;
+    margin: 4px 10px;
 }
