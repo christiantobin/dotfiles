@@ -5,8 +5,8 @@ margin=10
 padding=12
 border-size=2
 border-radius=10
-border-color=#a08c87
-background-color=#302623f2
+border-color=#899295
+background-color=#23292bf2
 text-color=#ffffff
 default-timeout=5000
 max-visible=3
@@ -17,7 +17,7 @@ max-icon-size=48
 markup=1
 
 [urgency=low]
-border-color=#53433f
+border-color=#40484b
 default-timeout=3000
 
 [urgency=critical]

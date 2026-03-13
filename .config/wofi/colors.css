@@ -1,14 +1,14 @@
 /* Matugen-generated wofi colors */
 /* Do not edit — regenerated on wallpaper change */
 
-@define-color bg #101418;
-@define-color fg #e1e2e8;
-@define-color input-bg #42474e;
-@define-color input-fg #e1e2e8;
-@define-color input-border #8d9199;
-@define-color input-border-focus #9fcafd;
-@define-color entry-selected-bg #184974;
-@define-color entry-selected-fg #d1e4ff;
-@define-color text #c3c7cf;
-@define-color text-selected #9fcafd;
-@define-color accent #9fcafd;
+@define-color bg #0f1416;
+@define-color fg #ffffff;
+@define-color input-bg #40484b;
+@define-color input-fg #ffffff;
+@define-color input-border #abb3b7;
+@define-color input-border-focus #9fe7ff;
+@define-color entry-selected-bg #4e9bb1;
+@define-color entry-selected-fg #000000;
+@define-color text #d5dee1;
+@define-color text-selected #9fe7ff;
+@define-color accent #9fe7ff;

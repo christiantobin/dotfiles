@@ -2,51 +2,51 @@
 # Do not edit — regenerated on wallpaper change
 
 [colors.primary]
-background = "#101418"
-foreground = "#e1e2e8"
-dim_foreground = "#8d9199"
-bright_foreground = "#e1e2e8"
+background = "#0f1416"
+foreground = "#ffffff"
+dim_foreground = "#abb3b7"
+bright_foreground = "#ffffff"
 
 [colors.cursor]
-text = "#101418"
-cursor = "#9fcafd"
+text = "#0f1416"
+cursor = "#9fe7ff"
 
 [colors.vi_mode_cursor]
-text = "#101418"
-cursor = "#d6bee5"
+text = "#0f1416"
+cursor = "#d7daff"
 
 [colors.search.matches]
-foreground = "#101418"
-background = "#8d9199"
+foreground = "#0f1416"
+background = "#abb3b7"
 
 [colors.search.focused_match]
-foreground = "#101418"
-background = "#9fcafd"
+foreground = "#0f1416"
+background = "#9fe7ff"
 
 [colors.footer_bar]
-foreground = "#101418"
-background = "#8d9199"
+foreground = "#0f1416"
+background = "#abb3b7"
 
 [colors.selection]
-text = "#101418"
-background = "#184974"
+text = "#0f1416"
+background = "#4e9bb1"
 
 [colors.normal]
-black = "#42474e"
-red = "#ffb4ab"
-green = "#9fcafd"
-yellow = "#bac8db"
-blue = "#d6bee5"
-magenta = "#524060"
-cyan = "#184974"
-white = "#c3c7cf"
+black = "#40484b"
+red = "#ffd2cc"
+green = "#9fe7ff"
+yellow = "#c8e0ea"
+blue = "#d7daff"
+magenta = "#c1c4eb"
+cyan = "#86d1e9"
+white = "#d5dee1"
 
 [colors.bright]
-black = "#8d9199"
-red = "#ffb4ab"
-green = "#9fcafd"
-yellow = "#bac8db"
-blue = "#d6bee5"
-magenta = "#524060"
-cyan = "#184974"
-white = "#e1e2e8"
+black = "#abb3b7"
+red = "#ffd2cc"
+green = "#9fe7ff"
+yellow = "#c8e0ea"
+blue = "#d7daff"
+magenta = "#dfe0ff"
+cyan = "#b2ebff"
+white = "#ffffff"

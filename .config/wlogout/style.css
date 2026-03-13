@@ -5,13 +5,13 @@
 }
 
 window {
-    background-color: alpha(#101418, 0.85);
+    background-color: alpha(#0f1416, 0.85);
 }
 
 button {
-    color: #e1e2e8;
-    background-color: alpha(#272a2f, 0.9);
-    border: 2px solid #42474e;
+    color: #ffffff;
+    background-color: alpha(#2e3336, 0.9);
+    border: 2px solid #899295;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 25%;
@@ -22,16 +22,16 @@ button {
 }
 
 button:hover {
-    background-color: #184974;
-    border-color: #9fcafd;
-    color: #d1e4ff;
+    background-color: #4e9bb1;
+    border-color: #9fe7ff;
+    color: #000000;
     outline: none;
 }
 
 button:focus {
-    background-color: #184974;
-    border-color: #9fcafd;
-    color: #d1e4ff;
+    background-color: #4e9bb1;
+    border-color: #9fe7ff;
+    color: #000000;
     outline: none;
 }
 
@@ -53,15 +53,15 @@ button:focus {
 
 #suspend {
     background-image: image(url("/usr/share/wlogout/icons/suspend.png"));
-    color: #8d9199;
-    border-color: #1d2024;
+    color: #abb3b7;
+    border-color: #23292b;
     opacity: 0.5;
 }
 
 #suspend:hover {
-    background-color: #93000a;
-    border-color: #ffb4ab;
-    color: #ffdad6;
+    background-color: #ff5449;
+    border-color: #ffd2cc;
+    color: #000000;
     opacity: 1;
 }
 

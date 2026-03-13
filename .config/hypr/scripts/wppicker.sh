@@ -34,4 +34,10 @@ matugen --source-color-index 0 --contrast 0.5 -m dark image "$WALLPAPER_PATH"
 # Symlink for reference
 ln -sf "$WALLPAPER_PATH" "$HOME/.config/hypr/current_wallpaper"
 
+# Restart waybar (matugen color changes can crash the mpris module)
+pkill waybar
+sleep 0.5
+waybar &>/dev/null &
+disown
+
 notify-send "Wallpaper" "Applied: $selected"
