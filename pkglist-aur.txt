@@ -1,0 +1,8 @@
+bibata-cursor-git
+google-chrome
+localsend-bin
+matugen-bin
+webcord
+wlogout
+yay
+yay-debug
