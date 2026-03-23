@@ -9,7 +9,7 @@ export OSH='/home/christian/.oh-my-bash'
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="mairan"
+OSH_THEME="tobin"
 
 # If you set OSH_THEME to "random", you can ignore themes you don't like.
 # OMB_THEME_RANDOM_IGNORED=("powerbash10k" "wanelo")
@@ -176,6 +176,12 @@ alias cl='clear'
 alias discord='webcord'
 
 export PATH="$PATH:$HOME/.local/bin"
+
+# zoxide (smart cd)
+eval "$(zoxide init bash)"
+
+# fzf keybindings and completion
+eval "$(fzf --bash)"
 
 echo ""
 fastfetch

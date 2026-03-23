@@ -188,4 +188,5 @@ echo ":: Reloading Hyprland and waybar"
 hyprctl reload 2>/dev/null || true
 pkill -SIGUSR2 waybar 2>/dev/null || { nohup waybar &>/dev/null & }
 
+echo "$selected" > "$HOME/.config/hypr/current_theme"
 echo ":: Done! Theme '$selected' applied."
