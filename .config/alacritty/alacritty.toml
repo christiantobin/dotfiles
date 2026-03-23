@@ -16,3 +16,9 @@ chars = "\u001B\r"
 
 [general]
 import = ["~/.config/alacritty/colors.toml"]
+
+[font]
+size = 13.0
+
+[font.normal]
+family = "Hack Nerd Font"

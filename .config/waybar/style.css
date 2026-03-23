@@ -7,7 +7,7 @@
     border: none;
     border-radius: 0;
     min-height: 0;
-    font-family: "JetBrainsMono Nerd Font", "Hack Nerd Font", monospace;
+    font-family: "Hack Nerd Font", "Hack Nerd Font", monospace;
     font-size: 14px;
 }
 
@@ -29,7 +29,7 @@ window#waybar {
     margin: 0 1.5px;
     min-width: 9px;
     color: @overlay0;
-    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-family: "Hack Nerd Font", monospace;
     font-size: 14px;
 }
 

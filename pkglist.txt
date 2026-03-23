@@ -9,6 +9,7 @@ bibata-cursor-git
 blueman
 brightnessctl
 btop
+calf
 cava
 cliphist
 cmake
@@ -25,6 +26,7 @@ firefox
 fzf
 git
 github-cli
+gnome-disk-utility
 gnome-keyring
 google-chrome
 grim
@@ -43,6 +45,7 @@ linux-firmware
 linux-t2
 localsend-bin
 lsd
+lsp-plugins-lv2
 make
 mako
 matugen-bin
@@ -74,14 +77,20 @@ rust
 slurp
 sudo
 swaync
+swh-plugins
 swww
 t2fanrd
 thunar
 tiny-dfr
 tldr
 tmux
+ttf-cascadia-code-nerd
+ttf-firacode-nerd
 ttf-hack-nerd
+ttf-iosevka-nerd
 ttf-jetbrains-mono
+ttf-meslo-nerd
+ttf-victor-mono-nerd
 unzip
 usbutils
 vim
@@ -92,6 +101,7 @@ wireplumber
 wl-clipboard
 wlogout
 wofi
+wtype
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
 yay
