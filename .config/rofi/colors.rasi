@@ -3,12 +3,12 @@
 
 * {
     bg:             #0f1416;
-    bg-alt:         #40484b;
+    bg-alt:         #40484c;
     fg:             #ffffff;
-    fg-alt:         #d5dee1;
-    accent:         #9fe7ff;
-    accent-alt:     #4e9bb1;
+    fg-alt:         #d5dee2;
+    accent:         #a4e6ff;
+    accent-alt:     #4f9ab3;
     urgent:         #ffd2cc;
-    selected-bg:    #4e9bb1;
+    selected-bg:    #4f9ab3;
     selected-fg:    #000000;
 }

@@ -4,15 +4,15 @@
 :root {
     /* Background — transparent with slight tint */
     --background-primary: #0f1416cc;
-    --background-secondary: #191e20cc;
+    --background-secondary: #191e21cc;
     --background-secondary-alt: #23292bcc;
     --background-tertiary: #04080acc;
-    --background-accent: #9fe7ff;
+    --background-accent: #a4e6ff;
     --background-floating: #23292be6;
     --background-modifier-hover: #2e333680;
     --background-modifier-active: #2e3336b3;
     --background-modifier-selected: #2e333699;
-    --background-modifier-accent: #89929530;
+    --background-modifier-accent: #89929630;
 
     /* Channels/sidebar */
     --channeltextarea-background: #23292b;
@@ -21,41 +21,41 @@
     /* Text */
     --text-normal: #ffffff;
     --text-muted: #abb3b7;
-    --text-link: #9fe7ff;
+    --text-link: #a4e6ff;
     --header-primary: #ffffff;
-    --header-secondary: #d5dee1;
-    --interactive-normal: #d5dee1;
+    --header-secondary: #d5dee2;
+    --interactive-normal: #d5dee2;
     --interactive-hover: #ffffff;
     --interactive-active: #ffffff;
-    --interactive-muted: #899295;
-    --channels-default: #d5dee1;
+    --interactive-muted: #899296;
+    --channels-default: #d5dee2;
     --white-500: #ffffff;
 
     /* Brand / accent */
-    --brand-experiment: #9fe7ff;
-    --brand-experiment-560: #9fe7ff;
-    --brand-experiment-600: #4e9bb1;
+    --brand-experiment: #a4e6ff;
+    --brand-experiment-560: #a4e6ff;
+    --brand-experiment-600: #4f9ab3;
 
     /* Scrollbar */
-    --scrollbar-thin-thumb: #393f41;
+    --scrollbar-thin-thumb: #393e41;
     --scrollbar-thin-track: transparent;
-    --scrollbar-auto-thumb: #393f41;
-    --scrollbar-auto-track: #191e20;
+    --scrollbar-auto-thumb: #393e41;
+    --scrollbar-auto-track: #191e21;
 
     /* Input */
     --input-background: #23292b;
 
     /* Misc */
     --modal-background: #23292b;
-    --modal-footer-background: #191e20;
-    --info-positive-foreground: #9fe7ff;
+    --modal-footer-background: #191e21;
+    --info-positive-foreground: #a4e6ff;
     --info-danger-foreground: #ffd2cc;
-    --status-positive-background: #9fe7ff;
+    --status-positive-background: #a4e6ff;
     --status-danger: #ffd2cc;
-    --button-positive-background: #4e9bb1;
+    --button-positive-background: #4f9ab3;
     --button-danger-background: #ff5449;
-    --mention-foreground: #9fe7ff;
-    --mention-background: #9fe7ff15;
+    --mention-foreground: #a4e6ff;
+    --mention-background: #a4e6ff15;
 }
 
 /* Transparent body */
@@ -72,7 +72,7 @@ nav[class*="wrapper_"] {
 /* Sidebar / channels */
 .sidebar_a4d4d9,
 div[class*="sidebar_"] {
-    background: #191e20bb !important;
+    background: #191e21bb !important;
 }
 
 /* Chat area */
@@ -84,7 +84,7 @@ div[class*="chat_"] {
 /* Member list */
 .members_cbd271,
 div[class*="members_"] {
-    background: #191e20bb !important;
+    background: #191e21bb !important;
 }
 
 /* Title bar */

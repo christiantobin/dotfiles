@@ -185,3 +185,7 @@ eval "$(fzf --bash)"
 
 echo ""
 fastfetch
+export PATH="$HOME/.npm-global/bin:$PATH"
+
+# OpenClaw Completion
+source "/home/christian/.openclaw/completions/openclaw.bash"

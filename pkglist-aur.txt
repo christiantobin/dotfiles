@@ -1,7 +1,15 @@
 bibata-cursor-git
 google-chrome
+jlink-software-and-documentation
+libpamac-full
+libudev0-shim
+libudev0-shim-debug
 localsend-bin
 matugen-bin
+pamac-all
+pamac-cli
+snapd
+snapd-glib
 webcord
 wlogout
 yay

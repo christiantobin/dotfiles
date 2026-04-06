@@ -11,7 +11,7 @@ window {
 button {
     color: #ffffff;
     background-color: alpha(#2e3336, 0.9);
-    border: 2px solid #899295;
+    border: 2px solid #899296;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 25%;
@@ -22,15 +22,15 @@ button {
 }
 
 button:hover {
-    background-color: #4e9bb1;
-    border-color: #9fe7ff;
+    background-color: #4f9ab3;
+    border-color: #a4e6ff;
     color: #000000;
     outline: none;
 }
 
 button:focus {
-    background-color: #4e9bb1;
-    border-color: #9fe7ff;
+    background-color: #4f9ab3;
+    border-color: #a4e6ff;
     color: #000000;
     outline: none;
 }
