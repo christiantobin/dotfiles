@@ -11,13 +11,19 @@
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["custom/window"],
   "modules-right": [
+    "tray",
     "mpris",
     "network",
-    "wireplumber",
+    "custom/volume",
     "backlight",
     "battery",
     "clock"
   ],
+
+  "tray": {
+    "icon-size": 18,
+    "spacing": 8
+  },
 
   "hyprland/workspaces": {
     "on-click": "activate",
@@ -62,15 +68,16 @@
     "tooltip-format-ethernet": "{ifname}\n{ipaddr}/{cidr}"
   },
 
-  "wireplumber": {
-    "format": "{icon} {volume}%",
-    "format-muted": "󰝟 Muted",
-    "format-icons": ["󰕿", "󰖀", "󰕾"],
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-    "on-click-right": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
-    "on-click-middle": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
-    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
-    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+  "custom/volume": {
+    "exec": "volume-ctl status",
+    "return-type": "json",
+    "interval": 1,
+    "signal": 8,
+    "on-click": "volume-ctl toggle",
+    "on-click-right": "volume-ctl up",
+    "on-click-middle": "volume-ctl down",
+    "on-scroll-up": "volume-ctl up",
+    "on-scroll-down": "volume-ctl down"
   },
 
   "backlight": {

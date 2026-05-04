@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Volume control + waybar status with a remapped 0-200% raw scale shown as 0-100%.
+# raw 0.0..2.0  ->  display 0..100  (display = raw * 50)
+# Step size below is in display units.
+
+set -euo pipefail
+
+SINK="@DEFAULT_AUDIO_SINK@"
+RAW_MAX="2.0"
+STEP_DISPLAY=5            # %, in display units
+STEP_RAW_PCT=$(( STEP_DISPLAY * 2 ))   # wpctl uses raw % (100% = 1.0)
+
+case "${1:-status}" in
+    status)
+        out=$(wpctl get-volume "$SINK")
+        raw=$(awk '{print $2}' <<<"$out")
+        display=$(awk -v v="$raw" 'BEGIN { printf "%d", (v * 50) + 0.5 }')
+        if grep -q MUTED <<<"$out"; then
+            printf '{"text":" Muted","tooltip":"Muted (raw %s)","class":"muted","percentage":%d}\n' "$raw" "$display"
+        else
+            if   (( display <= 33 )); then icon="󰕿"   # 󰕿
+            elif (( display <= 66 )); then icon="󰖀"   # 󰖀
+            else                            icon="󰕾"  # 󰕾
+            fi
+            printf '{"text":"%b %d%%","tooltip":"Volume: %d%% (raw %s)","percentage":%d}\n' \
+                "$icon" "$display" "$display" "$raw" "$display"
+        fi
+        ;;
+    up)
+        wpctl set-mute "$SINK" 0
+        wpctl set-volume -l "$RAW_MAX" "$SINK" "${STEP_RAW_PCT}%+"
+        pkill -SIGRTMIN+8 waybar 2>/dev/null || true
+        ;;
+    down)
+        wpctl set-volume "$SINK" "${STEP_RAW_PCT}%-"
+        pkill -SIGRTMIN+8 waybar 2>/dev/null || true
+        ;;
+    toggle)
+        wpctl set-mute "$SINK" toggle
+        pkill -SIGRTMIN+8 waybar 2>/dev/null || true
+        ;;
+    *)
+        echo "usage: $0 {status|up|down|toggle}" >&2
+        exit 2
+        ;;
+esac
