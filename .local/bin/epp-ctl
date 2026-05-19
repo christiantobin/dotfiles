@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+# Energy Performance Preference + Hyprland effects mode toggle.
+# Modes (cycle on toggle):
+#   performance -> balanced -> saver -> performance
+#   performance: EPP=performance, full effects
+#   balanced:    EPP=balance_performance, full effects
+#   saver:       EPP=performance, animations/blur/shadows/rounding disabled
+
+set -euo pipefail
+
+EPP_PATH="/sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference"
+MAX_PERF_PATH="/sys/devices/system/cpu/intel_pstate/max_perf_pct"
+SAVER_MAX_PERF=60     # cap CPU at ~60% of max freq in saver mode to control thermals
+STATE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/epp-ctl/mode"
+WAYBAR_SIGNAL=9
+
+read_epp() {
+    cat "$EPP_PATH"
+}
+
+set_epp() {
+    echo "$1" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference >/dev/null
+}
+
+set_max_perf() {
+    echo "$1" | sudo tee "$MAX_PERF_PATH" >/dev/null
+}
+
+get_mode() {
+    cat "$STATE_FILE" 2>/dev/null || {
+        # Infer from EPP if state file missing.
+        case "$(read_epp)" in
+            performance)         echo performance ;;
+            balance_performance) echo balanced ;;
+            *)                   echo balanced ;;
+        esac
+    }
+}
+
+write_mode() {
+    mkdir -p "$(dirname "$STATE_FILE")"
+    echo "$1" > "$STATE_FILE"
+}
+
+apply_saver_effects() {
+    hyprctl --batch "\
+        keyword animations:enabled 0 ; \
+        keyword decoration:blur:enabled false ; \
+        keyword decoration:rounding 0 ; \
+        keyword decoration:shadow:enabled false ; \
+        keyword decoration:active_opacity 1.0 ; \
+        keyword decoration:inactive_opacity 1.0" >/dev/null
+}
+
+restore_effects() {
+    # Re-reads config, restoring animations/blur/etc to file defaults.
+    hyprctl reload >/dev/null
+}
+
+apply_mode() {
+    local new_mode="$1"
+    local prev_mode
+    prev_mode=$(get_mode)
+
+    case "$new_mode" in
+        performance)
+            set_max_perf 100
+            set_epp performance
+            ;;
+        balanced)
+            set_max_perf 100
+            set_epp balance_performance
+            ;;
+        saver)
+            set_max_perf "$SAVER_MAX_PERF"
+            set_epp balance_power
+            apply_saver_effects
+            ;;
+        *)
+            echo "unknown mode: $new_mode" >&2
+            exit 2
+            ;;
+    esac
+
+    # Leaving saver -> restore Hyprland effects from config.
+    if [[ "$prev_mode" == "saver" && "$new_mode" != "saver" ]]; then
+        restore_effects
+    fi
+
+    write_mode "$new_mode"
+    pkill -SIGRTMIN+${WAYBAR_SIGNAL} waybar 2>/dev/null || true
+}
+
+case "${1:-status}" in
+    status)
+        mode=$(get_mode)
+        cur_epp=$(read_epp)
+        max_perf=$(cat "$MAX_PERF_PATH" 2>/dev/null || echo "?")
+        freq_khz=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq)
+        freq_ghz=$(awk -v f="$freq_khz" 'BEGIN { printf "%.1f", f/1000000 }')
+        pkg_temp_milli=$(cat /sys/class/thermal/thermal_zone*/temp 2>/dev/null | sort -n | tail -1)
+        pkg_temp=$((pkg_temp_milli / 1000))
+        case "$mode" in
+            performance) icon="󰓅"; cls="performance"; label="Perf" ;;
+            balanced)    icon="󰾅"; cls="balanced";    label="Bal"  ;;
+            saver)       icon="󰌪"; cls="saver";       label="Save" ;;
+            *)           icon="?";  cls="unknown";     label="?"    ;;
+        esac
+        printf '{"text":"%s %s","tooltip":"Mode: %s\\nEPP: %s\\nMax: %s%%\\nCPU0: %s GHz\\nPkg: %s°C","class":"%s"}\n' \
+            "$icon" "$label" "$mode" "$cur_epp" "$max_perf" "$freq_ghz" "$pkg_temp" "$cls"
+        ;;
+    toggle)
+        case "$(get_mode)" in
+            performance) apply_mode balanced ;;
+            balanced)    apply_mode saver ;;
+            saver)       apply_mode performance ;;
+            *)           apply_mode performance ;;
+        esac
+        ;;
+    perf|performance)        apply_mode performance ;;
+    bal|balance|balanced)    apply_mode balanced ;;
+    save|saver)              apply_mode saver ;;
+    *)
+        echo "usage: $0 {status|toggle|performance|balanced|saver}" >&2
+        exit 2
+        ;;
+esac

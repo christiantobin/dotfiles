@@ -16,6 +16,7 @@
     "network",
     "custom/volume",
     "backlight",
+    "custom/epp",
     "battery",
     "clock"
   ],
@@ -105,5 +106,13 @@
     "interval": 1,
     "format": "{}",
     "max-length": 40
+  },
+
+  "custom/epp": {
+    "exec": "epp-ctl status",
+    "return-type": "json",
+    "interval": 5,
+    "signal": 9,
+    "on-click": "epp-ctl toggle"
   }
 }
