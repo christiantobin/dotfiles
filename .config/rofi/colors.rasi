@@ -2,13 +2,13 @@
 /* Do not edit — regenerated on wallpaper change */
 
 * {
-    bg:             #0f1416;
-    bg-alt:         #40484c;
+    bg:             #17130b;
+    bg-alt:         #4e4639;
     fg:             #ffffff;
-    fg-alt:         #d5dee2;
-    accent:         #a4e6ff;
-    accent-alt:     #4f9ab3;
+    fg-alt:         #e8dac9;
+    accent:         #ffd791;
+    accent-alt:     #b38a3d;
     urgent:         #ffd2cc;
-    selected-bg:    #4f9ab3;
+    selected-bg:    #b38a3d;
     selected-fg:    #000000;
 }

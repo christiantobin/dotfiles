@@ -2,6 +2,7 @@ alacritty
 alsa-utils
 apple-bcm-firmware
 apple-t2-audio-config
+arch-audit
 awww
 base
 base-devel
@@ -25,6 +26,7 @@ fakeroot
 fastfetch
 fd
 firefox
+freecad
 fzf
 git
 github-cli
@@ -41,7 +43,9 @@ imv
 intel-media-driver
 iw
 jlink-software-and-documentation
+kanshi
 kitty
+kvantum
 lazygit
 libva-utils
 linux-firmware
@@ -76,10 +80,12 @@ qrencode
 qt5-wayland
 qt6-5compat
 qt6-wayland
+qt6ct
 rhash
 ripgrep
 rofi
 rust
+slack-desktop
 slurp
 snapshot
 socat
@@ -87,10 +93,12 @@ sudo
 swaync
 swh-plugins
 t2fanrd
+tectonic
 thunar
 tiny-dfr
 tldr
 tmux
+tradingview
 ttf-cascadia-code-nerd
 ttf-firacode-nerd
 ttf-hack-nerd
@@ -101,9 +109,10 @@ ttf-victor-mono-nerd
 ufw
 unzip
 usbutils
+vesktop-bin
 vim
 waybar
-webcord
+wayland-pipewire-idle-inhibit
 weston
 wireplumber
 wl-clipboard

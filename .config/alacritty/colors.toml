@@ -2,51 +2,51 @@
 # Do not edit — regenerated on wallpaper change
 
 [colors.primary]
-background = "#0f1416"
+background = "#17130b"
 foreground = "#ffffff"
-dim_foreground = "#abb3b7"
+dim_foreground = "#bcb0a0"
 bright_foreground = "#ffffff"
 
 [colors.cursor]
-text = "#0f1416"
-cursor = "#a4e6ff"
+text = "#17130b"
+cursor = "#ffd791"
 
 [colors.vi_mode_cursor]
-text = "#0f1416"
-cursor = "#d9d9ff"
+text = "#17130b"
+cursor = "#c9e4bb"
 
 [colors.search.matches]
-foreground = "#0f1416"
-background = "#abb3b7"
+foreground = "#17130b"
+background = "#bcb0a0"
 
 [colors.search.focused_match]
-foreground = "#0f1416"
-background = "#a4e6ff"
+foreground = "#17130b"
+background = "#ffd791"
 
 [colors.footer_bar]
-foreground = "#0f1416"
-background = "#abb3b7"
+foreground = "#17130b"
+background = "#bcb0a0"
 
 [colors.selection]
-text = "#0f1416"
-background = "#4f9ab3"
+text = "#17130b"
+background = "#b38a3d"
 
 [colors.normal]
-black = "#40484c"
+black = "#4e4639"
 red = "#ffd2cc"
-green = "#a4e6ff"
-yellow = "#c9e0ea"
-blue = "#d9d9ff"
-magenta = "#c2c3eb"
-cyan = "#87d1eb"
-white = "#d5dee2"
+green = "#ffd791"
+yellow = "#f1d9b5"
+blue = "#c9e4bb"
+magenta = "#b3cea6"
+cyan = "#edc06c"
+white = "#e8dac9"
 
 [colors.bright]
-black = "#abb3b7"
+black = "#bcb0a0"
 red = "#ffd2cc"
-green = "#a4e6ff"
-yellow = "#c9e0ea"
-blue = "#d9d9ff"
-magenta = "#e0e0ff"
-cyan = "#b6eaff"
+green = "#ffd791"
+yellow = "#f1d9b5"
+blue = "#c9e4bb"
+magenta = "#cfebc1"
+cyan = "#ffdea8"
 white = "#ffffff"

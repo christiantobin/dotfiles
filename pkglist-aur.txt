@@ -1,4 +1,6 @@
 bibata-cursor-git
+electron40-bin
+electron40-bin-debug
 google-chrome
 jlink-software-and-documentation
 libpamac-full
@@ -8,9 +10,13 @@ localsend-bin
 matugen-bin
 pamac-all
 pamac-cli
+slack-desktop
 snapd
 snapd-glib
-webcord
+tradingview
+vesktop-bin
+wayland-pipewire-idle-inhibit
+wayland-pipewire-idle-inhibit-debug
 wlogout
 yay
 yay-debug
