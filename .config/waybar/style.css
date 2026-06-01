@@ -91,29 +91,12 @@ window#waybar.empty #window {
     color: @green;
 }
 
-#custom-epp.performance {
-    color: @red;
-}
-
-#custom-epp.balanced {
-    color: @green;
-}
-
-#custom-epp.saver {
-    color: @peach;
-}
-
-#custom-epp.unknown {
-    color: @overlay0;
-}
-
 #cpu,
 #pulseaudio,
 #network,
 #clock,
 #battery,
 #custom-window,
-#custom-epp,
 #backlight,
 #wireplumber,
 #mpris {
