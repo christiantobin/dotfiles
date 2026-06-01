@@ -40,6 +40,7 @@ hyprlock
 hyprpaper
 hyprpicker
 imv
+intel-gpu-tools
 intel-media-driver
 iw
 jlink-software-and-documentation
@@ -75,6 +76,7 @@ pipewire-alsa
 pipewire-pulse
 polkit-kde-agent
 procs
+python-evdev
 python-pyserial
 qrencode
 qt5-wayland
