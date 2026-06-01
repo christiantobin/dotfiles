@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+"""Trackpad disable-while-typing daemon (macOS-like, ~1.5s window).
+
+Watches the Apple internal keyboard and exclusively grabs the Apple
+trackpad event device for DWT_MS milliseconds after each keystroke.
+While grabbed, libinput (and thus Hyprland) sees no trackpad events.
+
+Workaround for hyprwm/Hyprland discussions/13907: libinput's built-in
+disable_while_typing timeout (~500 ms) is not yet exposed by Hyprland.
+"""
+
+import asyncio
+import os
+import sys
+
+from evdev import InputDevice, ecodes, list_devices
+
+DWT_MS = int(os.environ.get("TRACKPAD_DWT_MS", "500"))
+
+
+def _open_devices():
+    for path in list_devices():
+        try:
+            yield InputDevice(path)
+        except (OSError, PermissionError):
+            continue
+
+
+def find_keyboard():
+    for d in _open_devices():
+        caps = d.capabilities()
+        if ecodes.EV_KEY not in caps or ecodes.EV_ABS in caps:
+            continue
+        if ecodes.KEY_A in caps[ecodes.EV_KEY] and "Apple" in d.name:
+            return d
+    return None
+
+
+def find_trackpad():
+    for d in _open_devices():
+        caps = d.capabilities()
+        keys = caps.get(ecodes.EV_KEY, [])
+        if ecodes.EV_ABS in caps and ecodes.BTN_TOUCH in keys and "Apple" in d.name:
+            return d
+    return None
+
+
+async def main():
+    kbd = find_keyboard()
+    tp = find_trackpad()
+    if not kbd or not tp:
+        print(f"device discovery failed: keyboard={kbd} trackpad={tp}", file=sys.stderr)
+        sys.exit(1)
+    print(f"keyboard: {kbd.path} ({kbd.name})", file=sys.stderr, flush=True)
+    print(f"trackpad: {tp.path} ({tp.name}) — DWT window {DWT_MS}ms",
+          file=sys.stderr, flush=True)
+
+    loop = asyncio.get_running_loop()
+    grabbed = False
+    timer = None
+
+    def release():
+        nonlocal grabbed, timer
+        timer = None
+        if grabbed:
+            try:
+                tp.ungrab()
+            except OSError as e:
+                print(f"ungrab failed: {e}", file=sys.stderr, flush=True)
+            grabbed = False
+
+    async for event in kbd.async_read_loop():
+        if event.type != ecodes.EV_KEY or event.value not in (1, 2):
+            continue
+        if not grabbed:
+            try:
+                tp.grab()
+                grabbed = True
+            except OSError as e:
+                print(f"grab failed: {e}", file=sys.stderr, flush=True)
+                continue
+        if timer:
+            timer.cancel()
+        timer = loop.call_later(DWT_MS / 1000, release)
+
+
+try:
+    asyncio.run(main())
+except KeyboardInterrupt:
+    pass
