@@ -67,12 +67,20 @@ window#waybar.empty #window {
     color: @red;
 }
 
-#network {
+#custom-network {
     color: @sapphire;
 }
 
-#network.disconnected {
+#custom-network.locked {
+    color: @peach;
+}
+
+#custom-network.disconnected {
     color: @overlay0;
+}
+
+#custom-network.disabled {
+    color: @red;
 }
 
 #wireplumber {
@@ -93,7 +101,7 @@ window#waybar.empty #window {
 
 #cpu,
 #pulseaudio,
-#network,
+#custom-network,
 #clock,
 #battery,
 #custom-window,

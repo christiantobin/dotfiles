@@ -1,0 +1,217 @@
+#!/usr/bin/env bash
+# net-ctl — WiFi controls for waybar + a wofi network picker (NetworkManager).
+# Subcommands: status | toggle-radio | toggle-lock | picker
+# Mirrors the volume-ctl/custom-volume pattern.
+
+set -uo pipefail
+
+CACHE_DIR="$HOME/.cache/net-ctl"
+LOCK_STATE="$CACHE_DIR/roam-lock.state"
+WAYBAR_SIG=9
+LOCK_GLYPH="󰌾"
+mkdir -p "$CACHE_DIR"
+
+wifi_iface() {
+  nmcli -t -f DEVICE,TYPE device 2>/dev/null | awk -F: '$2=="wifi"{print $1; exit}'
+}
+
+radio_on() { [ "$(nmcli radio wifi 2>/dev/null)" = "enabled" ]; }
+is_locked() { [ -s "$LOCK_STATE" ]; }
+
+# strongest in-use row -> "SIGNAL:SSID"
+active_wifi() {
+  nmcli -t -f IN-USE,SIGNAL,SSID device wifi list --rescan no 2>/dev/null \
+    | awk -F: '$1=="*"{print $2":"substr($0, index($0,$3)); exit}'
+}
+
+signal_icon() {
+  local s=${1:-0}
+  if   [ "$s" -ge 80 ]; then echo "󰤨"
+  elif [ "$s" -ge 55 ]; then echo "󰤥"
+  elif [ "$s" -ge 30 ]; then echo "󰤢"
+  elif [ "$s" -ge 5  ]; then echo "󰤟"
+  else echo "󰤯"; fi
+}
+
+json_escape() { sed 's/\\/\\\\/g; s/"/\\"/g'; }
+
+signal_waybar() { pkill -RTMIN+$WAYBAR_SIG waybar 2>/dev/null; }
+
+# ---------------------------------------------------------------- status (json)
+cmd_status() {
+  local text tip class lockmark=""
+  is_locked && lockmark=" $LOCK_GLYPH"
+
+  if ! radio_on; then
+    text="󰤭"; class="disabled"; tip="Wi-Fi off"
+  else
+    local row sig ssid
+    row=$(active_wifi)
+    sig=${row%%:*}
+    ssid=${row#*:}
+    if [ -n "$ssid" ] && [ -n "$row" ]; then
+      local iface ip
+      iface=$(wifi_iface)
+      ip=$(nmcli -t -f IP4.ADDRESS device show "$iface" 2>/dev/null | head -1 | cut -d: -f2)
+      text="$(signal_icon "$sig") ${sig}%${lockmark}"
+      class="connected"; is_locked && class="locked"
+      tip="$ssid  (${sig}%)\n${ip:-no IP}"
+      is_locked && tip="$tip\n🔒 Locked to this network"
+    else
+      text="󰤯${lockmark}"; class="disconnected"; tip="Wi-Fi on — not connected"
+      is_locked && class="locked"
+    fi
+  fi
+  printf '{"text":"%s","tooltip":"%s","class":"%s"}\n' \
+    "$(printf '%s' "$text" | json_escape)" \
+    "$(printf '%b' "$tip"  | json_escape | sed ':a;N;$!ba;s/\n/\\n/g')" \
+    "$class"
+}
+
+# ----------------------------------------------------------------- toggle radio
+cmd_toggle_radio() {
+  if radio_on; then
+    nmcli radio wifi off
+    notify-send -a net-ctl "Wi-Fi" "Radio off"
+  else
+    nmcli radio wifi on
+    notify-send -a net-ctl "Wi-Fi" "Radio on"
+  fi
+  signal_waybar
+}
+
+# ------------------------------------------------------------------ toggle lock
+# Lock = disable autoconnect on every saved wifi profile except the active one,
+# remembering which we changed so unlock restores exactly those.
+saved_wifi_cons() {
+  nmcli -t -f NAME,TYPE connection show 2>/dev/null \
+    | awk -F: '$2 ~ /wireless/{print $1}'
+}
+active_wifi_con() {
+  local iface; iface=$(wifi_iface)
+  nmcli -t -f NAME,TYPE,DEVICE connection show --active 2>/dev/null \
+    | awk -F: -v d="$iface" '$2 ~ /wireless/ && $3==d{print $1; exit}'
+}
+
+cmd_toggle_lock() {
+  if is_locked; then
+    while IFS= read -r name; do
+      [ -n "$name" ] && nmcli connection modify "$name" connection.autoconnect yes
+    done < "$LOCK_STATE"
+    rm -f "$LOCK_STATE"
+    notify-send -a net-ctl "Wi-Fi" "Roam-lock off — auto-switching restored"
+  else
+    local active; active=$(active_wifi_con)
+    if [ -z "$active" ]; then
+      notify-send -a net-ctl "Wi-Fi" "Not connected — nothing to lock to"
+      return 0
+    fi
+    : > "$LOCK_STATE"
+    while IFS= read -r name; do
+      [ "$name" = "$active" ] && continue
+      [ -z "$name" ] && continue
+      if [ "$(nmcli -g connection.autoconnect connection show "$name" 2>/dev/null)" = "yes" ]; then
+        nmcli connection modify "$name" connection.autoconnect no \
+          && printf '%s\n' "$name" >> "$LOCK_STATE"
+      fi
+    done < <(saved_wifi_cons)
+    # ensure lock registers even if no other profiles needed changing
+    [ -s "$LOCK_STATE" ] || printf '# locked to %s\n' "$active" > "$LOCK_STATE"
+    notify-send -a net-ctl "Wi-Fi" "Roam-locked to $active"
+  fi
+  signal_waybar
+}
+
+# ----------------------------------------------------------------------- picker
+wofi_menu() { wofi --dmenu --cache-file /dev/null "$@"; }
+
+known_ssids() { saved_wifi_cons; }
+
+cmd_picker() {
+  local iface; iface=$(wifi_iface)
+  if [ -z "$iface" ]; then
+    notify-send -a net-ctl "Wi-Fi" "No WiFi device found"; return 1
+  fi
+  if ! radio_on; then
+    local ans
+    ans=$(printf 'Turn Wi-Fi on\nCancel' | wofi_menu --prompt "Wi-Fi is off")
+    [ "$ans" = "Turn Wi-Fi on" ] && { nmcli radio wifi on; signal_waybar; sleep 2; } || return 0
+  fi
+
+  nmcli device wifi rescan 2>/dev/null
+
+  # known set for O(1) lookup
+  local known; known="$(known_ssids)"
+  is_known() { printf '%s\n' "$known" | grep -qxF "$1"; }
+
+  declare -A L_SSID L_KNOWN L_SEC L_ACTIVE
+  local menu="" seen=""
+  # IN-USE:SIGNAL:SECURITY:SSID  (SSID last; unescape \: in names)
+  while IFS=$'\t' read -r inuse sig sec ssid; do
+    [ -z "$ssid" ] && continue
+    printf '%s\n' "$seen" | grep -qxF "$ssid" && continue   # dedupe by SSID
+    seen="$seen"$'\n'"$ssid"
+
+    local icon markers="" line
+    icon=$(signal_icon "${sig:-0}")
+    local secured=0
+    [ -n "$sec" ] && [ "$sec" != "--" ] && { markers+=" 🔒"; secured=1; }
+    is_known "$ssid" && markers+=" ✓"
+    [ "$inuse" = "*" ] && markers+=" ●"
+
+    line="$icon  $ssid$markers"
+    menu+="$line"$'\n'
+    L_SSID["$line"]="$ssid"; L_SEC["$line"]=$secured
+    is_known "$ssid" && L_KNOWN["$line"]=1 || L_KNOWN["$line"]=0
+    [ "$inuse" = "*" ] && L_ACTIVE["$line"]=1 || L_ACTIVE["$line"]=0
+  done < <(nmcli -t -f IN-USE,SIGNAL,SECURITY,SSID device wifi list --rescan no 2>/dev/null \
+             | sed 's/\\:/:/g' | awk -F: '{printf "%s\t%s\t%s\t", $1, $2, $3; for(i=4;i<=NF;i++){printf "%s%s", (i>4?":":""), $i}; print ""}')
+
+  menu+="──────────────"$'\n'"↻  Rescan"$'\n'"⚙  Advanced (editor)"
+
+  local chosen
+  chosen=$(printf '%s' "$menu" | wofi_menu --prompt "Wi-Fi" --width 360 --height 400)
+  [ -z "$chosen" ] && return 0
+
+  case "$chosen" in
+    "↻  Rescan") exec "$0" picker ;;
+    "⚙  Advanced (editor)") setsid -f nm-connection-editor >/dev/null 2>&1; return 0 ;;
+    "──────────────") return 0 ;;
+  esac
+
+  local ssid=${L_SSID["$chosen"]}
+  [ -z "$ssid" ] && return 0
+
+  if [ "${L_ACTIVE["$chosen"]}" = "1" ]; then
+    local sub; sub=$(printf 'Disconnect\nCancel' | wofi_menu --prompt "$ssid")
+    if [ "$sub" = "Disconnect" ]; then
+      nmcli device disconnect "$iface" && notify-send -a net-ctl "Wi-Fi" "Disconnected from $ssid"
+      signal_waybar
+    fi
+    return 0
+  fi
+
+  local out
+  if [ "${L_KNOWN["$chosen"]}" = "1" ] || [ "${L_SEC["$chosen"]}" = "0" ]; then
+    out=$(nmcli device wifi connect "$ssid" 2>&1)
+  else
+    local pw; pw=$(printf '' | wofi_menu --password --prompt "Password for $ssid")
+    [ -z "$pw" ] && return 0
+    out=$(nmcli device wifi connect "$ssid" password "$pw" 2>&1)
+  fi
+
+  if printf '%s' "$out" | grep -qi 'successfully'; then
+    notify-send -a net-ctl "Wi-Fi" "Connected to $ssid"
+  else
+    notify-send -a net-ctl "Wi-Fi" "Failed: $(printf '%s' "$out" | tail -1)"
+  fi
+  signal_waybar
+}
+
+case "${1:-status}" in
+  status)       cmd_status ;;
+  toggle-radio) cmd_toggle_radio ;;
+  toggle-lock)  cmd_toggle_lock ;;
+  picker)       cmd_picker ;;
+  *) echo "usage: net-ctl {status|toggle-radio|toggle-lock|picker}" >&2; exit 1 ;;
+esac

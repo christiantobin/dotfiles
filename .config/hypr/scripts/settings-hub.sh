@@ -11,7 +11,7 @@ EOF
 )
 
 case "$selected" in
-    *Network*)    nm-connection-editor ;;
+    *Network*)    net-ctl picker ;;
     *Bluetooth*)  blueman-manager ;;
     *Audio*)      pavucontrol ;;
     *Disks*)      gnome-disks ;;

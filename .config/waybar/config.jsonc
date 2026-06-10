@@ -13,7 +13,7 @@
   "modules-right": [
     "tray",
     "mpris",
-    "network",
+    "custom/network",
     "custom/volume",
     "backlight",
     "battery",
@@ -59,13 +59,15 @@
     "tooltip-format": "{capacity}%, {timeTo}"
   },
 
-  "network": {
+  "custom/network": {
+    "exec": "net-ctl status",
+    "return-type": "json",
     "interval": 5,
-    "format-wifi": "󰤨 {signalStrength}%",
-    "format-ethernet": "󰈀",
-    "format-disconnected": "󰤭",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}/{cidr}",
-    "tooltip-format-ethernet": "{ifname}\n{ipaddr}/{cidr}"
+    "signal": 9,
+    "on-click": "net-ctl picker",
+    "on-click-right": "net-ctl toggle-radio",
+    "on-click-middle": "net-ctl toggle-lock",
+    "tooltip": true
   },
 
   "custom/volume": {
