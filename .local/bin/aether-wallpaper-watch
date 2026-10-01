@@ -14,6 +14,10 @@ recolor_if_changed() {
   [[ $hash == "$(cat "$LAST" 2>/dev/null)" ]] && return
   echo "$hash" > "$LAST"
   "$HOME/.local/bin/wallpaper-theme" "$img"
+  # The recolor may swap in a resized copy of the wallpaper; remember that too so
+  # the theme switch it causes is not mistaken for a new pick.
+  sleep 2
+  sha256sum "$(readlink -f "$STATE/background")" | cut -d' ' -f1 > "$LAST"
 }
 
 # Treat whatever is showing right now as already handled.

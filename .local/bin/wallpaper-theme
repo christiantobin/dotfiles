@@ -1,6 +1,8 @@
 #!/bin/bash
 # Recolor the whole desktop from a wallpaper using Aether.
 # Usage: wallpaper-theme [image] [--light]   (defaults to the current Omarchy background)
+# Aether rejects very large images ("unsafe image dimensions"), so anything over
+# 4096px is shrunk to fit 3840x2160 first; the smaller copy becomes the wallpaper.
 img=""
 extra=()
 for a in "$@"; do
@@ -11,5 +13,21 @@ if [[ ! -f $img ]]; then
   notify-send "wallpaper-theme" "No wallpaper found: ${img:-none}"
   exit 1
 fi
+
+read -r w h < <(identify -format '%w %h\n' "$img[0]" 2>/dev/null)
+if (( ${w:-0} > 4096 || ${h:-0} > 4096 )); then
+  cache="$HOME/.cache/wallpaper-theme"
+  mkdir -p "$cache"
+  small="$cache/$(basename "${img%.*}").jpg"
+  if [[ ! -f $small || $img -nt $small ]]; then
+    notify-send "wallpaper-theme" "Shrinking $(basename "$img") (${w}x${h}) first…"
+    magick "$img[0]" -resize '3840x2160>' -quality 92 "$small" || { notify-send "wallpaper-theme" "Could not resize $(basename "$img")"; exit 1; }
+  fi
+  img=$small
+fi
+
 notify-send "wallpaper-theme" "Generating theme from $(basename "$img")…"
-aether --generate "$img" "${extra[@]}" --no-zed --no-vscode
+if ! aether --generate "$img" "${extra[@]}" --no-zed --no-vscode; then
+  notify-send -u critical "wallpaper-theme" "Theme generation failed for $(basename "$img")"
+  exit 1
+fi
