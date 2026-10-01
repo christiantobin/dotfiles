@@ -1,0 +1,27 @@
+#!/bin/bash
+# Commit and push dotfile changes to the bare repo at ~/.dotfiles (branch: omarchy).
+# Usage: dotsync [-a path]... [commit message]
+#   -a path   also start tracking this file or directory (repeatable)
+# Tracked files that changed are included automatically.
+set -e
+G() { git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" "$@"; }
+
+adds=()
+while [[ ${1:-} == -a ]]; do adds+=("$2"); shift 2; done
+msg=${*:-"Update dotfiles $(date +%F)"}
+
+# Refresh the package lists that are tracked alongside the configs.
+pacman -Qqen > "$HOME/.config/dotfiles/pkglist-native.txt"
+pacman -Qqem > "$HOME/.config/dotfiles/pkglist-aur.txt"
+
+for p in "${adds[@]}"; do G add -- "$p"; done
+G add -u
+G add -- "$HOME/.config/dotfiles"
+
+if G diff --cached --quiet; then
+  echo "dotsync: nothing to commit"
+else
+  G commit -q -m "$msg"
+  G log --oneline -1
+fi
+G push -q origin omarchy && echo "dotsync: pushed to origin/omarchy"

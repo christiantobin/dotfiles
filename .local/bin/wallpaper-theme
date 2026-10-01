@@ -1,0 +1,15 @@
+#!/bin/bash
+# Recolor the whole desktop from a wallpaper using Aether.
+# Usage: wallpaper-theme [image] [--light]   (defaults to the current Omarchy background)
+img=""
+extra=()
+for a in "$@"; do
+  if [[ $a == --light ]]; then extra+=(--light-mode); else img=$a; fi
+done
+[[ -n $img ]] || img=$(readlink -f "$HOME/.local/state/omarchy/current/background")
+if [[ ! -f $img ]]; then
+  notify-send "wallpaper-theme" "No wallpaper found: ${img:-none}"
+  exit 1
+fi
+notify-send "wallpaper-theme" "Generating theme from $(basename "$img")…"
+aether --generate "$img" "${extra[@]}" --no-zed --no-vscode

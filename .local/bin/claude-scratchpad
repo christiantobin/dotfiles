@@ -1,0 +1,8 @@
+#!/bin/bash
+# Toggle Claude scratchpad. SUPER + A does the same natively in ~/.config/hypr/bindings.lua.
+if hyprctl clients -j | grep -q '"class": "claude-code"'; then
+    hyprctl dispatch 'hl.dsp.workspace.toggle_special("claude")'
+else
+    env -u CLAUDECODE foot --app-id claude-code -e bash -lc claude &
+    disown
+fi

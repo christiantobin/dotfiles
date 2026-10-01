@@ -1,0 +1,27 @@
+#!/bin/bash
+# While the Aether theme is active, recolor the desktop whenever the wallpaper
+# changes (e.g. picked with SUPER + W). Runs as a systemd user service.
+STATE="$HOME/.local/state/omarchy/current"
+LAST="${XDG_RUNTIME_DIR:-/tmp}/aether-wallpaper-last"
+
+recolor_if_changed() {
+  [[ $(cat "$STATE/theme.name" 2>/dev/null) == [Aa]ether ]] || return
+  local img hash
+  img=$(readlink -f "$STATE/background") || return
+  [[ -f $img ]] || return
+  hash=$(sha256sum "$img" | cut -d' ' -f1)
+  # Same pixels as last time (Aether's own copy of the wallpaper): nothing to do.
+  [[ $hash == "$(cat "$LAST" 2>/dev/null)" ]] && return
+  echo "$hash" > "$LAST"
+  "$HOME/.local/bin/wallpaper-theme" "$img"
+}
+
+# Treat whatever is showing right now as already handled.
+[[ -L $STATE/background ]] && sha256sum "$(readlink -f "$STATE/background")" | cut -d' ' -f1 > "$LAST"
+
+inotifywait -m -q -e create,moved_to,delete,attrib --format '%f' "$STATE" | while read -r name; do
+  [[ $name == background ]] || continue
+  sleep 1.5
+  # Drain events from the theme switch that our own recolor causes.
+  recolor_if_changed
+done
