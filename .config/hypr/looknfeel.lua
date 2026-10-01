@@ -77,7 +77,7 @@ if current_theme() == "aether" then
   hl.config({
     general = { gaps_in = 2, gaps_out = 4, border_size = 3 },
     decoration = {
-      rounding = 5,
+      rounding = 12,
       rounding_power = 2,
       dim_special = 0.3,
       blur = { enabled = true, size = 2, passes = 1, special = true },
@@ -95,3 +95,10 @@ if current_theme() == "aether" then
   hl.animation({ leaf = "fade", enabled = true, speed = 2.8, bezier = "quick" })
   hl.animation({ leaf = "workspaces", enabled = true, speed = 2, bezier = "easeOut", style = "slide" })
 end
+
+-- Blur behind the translucent Omarchy menus, launcher, panels and notifications.
+hl.layer_rule({
+  match = { namespace = "^(omarchy-menu|omarchy-image-selector|omarchy-emojis|omarchy-clipboard|omarchy-keyboard-panel|omarchy-notifications|omarchy-osd|omarchy-reminders)$" },
+  blur = true,
+  ignore_alpha = 0.2,
+})

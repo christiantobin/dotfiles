@@ -17,15 +17,17 @@ BarWidget {
     return null
   }
 
-  // Only the current workspace is shown; click or scroll to move between them.
   function workspaceIds() {
-    var focused = Hyprland.focusedWorkspace
-    return [focused && focused.id > 0 ? focused.id : 1]
-  }
+    var ids = [1, 2, 3, 4, 5]
+    var values = Hyprland.workspaces.values
 
-  function stepWorkspace(direction) {
-    if (!root.bar) return
-    root.bar.run("hyprctl dispatch " + Util.shellQuote("hl.dsp.focus({ workspace = \"e" + direction + "1\" })"))
+    for (var i = 0; i < values.length; i++) {
+      var id = values[i].id
+      if (id > 0 && id <= 10 && ids.indexOf(id) === -1) ids.push(id)
+    }
+
+    ids.sort(function(left, right) { return left - right })
+    return ids
   }
 
   function focusWorkspace(id) {
@@ -57,27 +59,13 @@ BarWidget {
         readonly property bool focused: Hyprland.focusedWorkspace !== null && Hyprland.focusedWorkspace.id === modelData
 
         bar: root.bar
-        text: modelData === 10 ? "0" : String(modelData)
-        foreground: focused ? Color.background : (bar ? bar.barForeground : Color.foreground)
-        opacity: occupied || focused ? 1 : 0.6
+        text: focused ? "\uDB85\uDCFB" : (modelData === 10 ? "0" : String(modelData))
+        opacity: occupied || focused ? 1 : 0.5
         horizontalMargin: 6
         verticalPadding: 6
-        fixedWidth: root.vertical ? root.barSize : 30
+        fixedWidth: root.vertical ? root.barSize : Style.space(20)
         fixedHeight: root.barSize
-        onPressed: function(button) { root.stepWorkspace(button === Qt.RightButton ? "-" : "+") }
-        onWheelMoved: function(delta) { root.stepWorkspace(delta > 0 ? "-" : "+") }
-
-        Rectangle {
-          z: -1
-          anchors.centerIn: parent
-          width: 28
-          height: 28
-          radius: 14
-          color: focused ? Color.accent : Qt.rgba(1, 1, 1, 0.07)
-          border.width: focused ? 0 : 1
-          border.color: Qt.rgba(1, 1, 1, 0.28)
-          Behavior on color { ColorAnimation { duration: 150 } }
-        }
+        onPressed: function() { root.focusWorkspace(modelData) }
       }
     }
   }

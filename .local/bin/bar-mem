@@ -1,0 +1,3 @@
+#!/bin/bash
+# Memory used % for the bar.
+awk '/^MemTotal/{t=$2} /^MemAvailable/{a=$2} END{printf "󰍛 %d%%\n", (t-a)*100/t}' /proc/meminfo

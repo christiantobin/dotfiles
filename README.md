@@ -15,9 +15,13 @@ sit in their real locations. Only files that were explicitly added are tracked.
 | `.config/hypr/*.lua` | Hyprland overrides on top of Omarchy defaults: bindings, input, look and feel, monitors |
 | `.config/hypr/macmode.lua` | Mac-style Cmd shortcuts (Cmd is `ALT` after the Super/Alt swap) |
 | `.config/hypr/floatmode.lua` | dwm-style per-workspace float mode (`Super+grave`) |
-| `.config/omarchy/shell.json`, `plugins/` | Bar layout and the cloned 6-workspace widget |
+| `.config/omarchy/shell.json` | Bar layout (grouped capsules, CPU/memory pills, always-visible indicators) |
+| `.config/omarchy/plugins/tobin-omarchy.bar/` | Custom pill-style bar: a modified copy of Omarchy's bar plugin (transparent, floating, grouped capsules) |
+| `.config/omarchy/plugins/tobin-omarchy.workspaces/` | Workspace widget that shows only the current workspace |
+| `.config/omarchy/themed/shell.toml.tpl` | Shell theme template override: translucent menus, popups and notifications |
+| `.config/fastfetch/config.jsonc` | fastfetch layout from the old setup |
 | `.config/systemd/user/aether-wallpaper-watch.service` | Recolors the Aether theme when the wallpaper changes |
-| `.local/bin/` | `wallpaper-theme`, `aether-wallpaper-watch`, `claude-scratchpad`, `dotsync` |
+| `.local/bin/` | `wallpaper-theme`, `aether-wallpaper-watch`, `claude-scratchpad`, `dotsync`, `bar-cpu`, `bar-mem` |
 | `.bashrc` | Aliases on top of Omarchy's shell defaults |
 | `.config/dotfiles/pkglist-*.txt` | Installed packages (native and AUR), refreshed by `dotsync` |
 | `.claude/skills/dotfiles-sync/` | Claude Code skill so agents know about this repo |

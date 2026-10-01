@@ -1,66 +1,92 @@
 {
-  "version": 1,
-  "idle": {
-    "screensaver": 150,
-    "lock": 300
-  },
   "bar": {
-    "position": "top",
-    "transparent": false,
     "centerAnchor": "omarchy.clock",
     "layout": {
-      "left": [
-        {
-          "id": "omarchy.menu"
-        },
-        {
-          "id": "tobin-omarchy.workspaces"
-        }
-      ],
       "center": [
         {
-          "id": "omarchy.indicators"
+          "id": "omarchy.media"
         },
         {
-          "id": "omarchy.clock",
           "format": "dddd HH:mm",
           "formatAlt": "d MMMM 'W'ww yyyy",
+          "id": "omarchy.clock",
           "verticalFormat": "HH\n—\nmm"
         },
         {
           "id": "omarchy.keyboard-layout"
         },
         {
+          "id": "omarchy.system-update"
+        }
+      ],
+      "left": [
+        {
           "id": "omarchy.weather"
         },
         {
-          "id": "omarchy.system-update"
+          "id": "omarchy.indicators",
+          "alwaysShow": true
+        },
+        {
+          "id": "tobin-omarchy.workspaces"
+        },
+        {
+          "id": "omarchy.active-window"
         }
       ],
       "right": [
         {
-          "id": "omarchy.tray"
-        },
-        {
           "id": "omarchy.agents"
         },
         {
-          "id": "omarchy.bluetooth"
+          "id": "custom.cpu",
+          "exec": "~/.local/bin/bar-cpu",
+          "interval": 2,
+          "onClick": "omarchy-launch-tui btop",
+          "tooltip": "CPU usage",
+          "group": "perf"
         },
         {
-          "id": "omarchy.network"
+          "id": "custom.mem",
+          "exec": "~/.local/bin/bar-mem",
+          "interval": 3,
+          "onClick": "omarchy-launch-tui btop",
+          "tooltip": "Memory usage",
+          "group": "perf"
         },
         {
-          "id": "omarchy.audio"
+          "id": "omarchy.tray"
         },
         {
-          "id": "omarchy.monitor"
+          "id": "omarchy.bluetooth",
+          "group": "conn"
         },
         {
-          "id": "omarchy.power"
+          "id": "omarchy.network",
+          "group": "conn"
+        },
+        {
+          "id": "omarchy.audio",
+          "group": "conn"
+        },
+        {
+          "id": "omarchy.monitor",
+          "group": "sys"
+        },
+        {
+          "id": "omarchy.power",
+          "group": "sys"
         }
       ]
-    }
+    },
+    "position": "top",
+    "transparent": true,
+    "id": "tobin-omarchy.bar"
   },
-  "plugins": []
+  "idle": {
+    "lock": 300,
+    "screensaver": 150
+  },
+  "plugins": [],
+  "version": 1
 }
