@@ -4,10 +4,13 @@ google-chrome
 jlink-software-and-documentation
 libpamac-full
 libudev0-shim
+litehtml0.9
 localsend-bin
 matugen-bin
+orca-slicer-bin
 pamac-all
 pamac-cli
+quickemu
 slack-desktop
 snapd
 snapd-glib
@@ -16,4 +19,3 @@ vesktop-bin
 wayland-pipewire-idle-inhibit
 wlogout
 yay
-yay-debug
