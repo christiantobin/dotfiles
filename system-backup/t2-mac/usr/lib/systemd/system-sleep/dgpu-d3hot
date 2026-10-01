@@ -1,0 +1,10 @@
+#!/bin/sh
+# Re-apply dGPU D3hot after resume — S3 resume brings driverless PCI
+# functions back to D0. Companion to dgpu-d3hot.service.
+case "$1" in
+    post)
+        /usr/bin/setpci -s 0000:03:00.0 CAP_PM+4.b=03
+        /usr/bin/setpci -s 0000:03:00.1 CAP_PM+4.b=03 || true
+        ;;
+esac
+exit 0

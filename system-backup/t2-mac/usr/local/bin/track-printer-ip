@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Keep /etc/hosts 'mkspi'/'neptune' pointed at the printer, identified by its
+# Moonraker hostname (so it survives DHCP IP changes). Managed line carries a marker.
+set -u
+TARGET="mkspi"; SUBNET="192.168.0"; HOSTS=/etc/hosts; MARK="# track-printer-ip"
+is_printer(){ [ "$(curl -s -m3 "http://$1:7125/printer/info" 2>/dev/null \
+  | python3 -c 'import sys,json;print(json.load(sys.stdin)["result"].get("hostname",""))' 2>/dev/null)" = "$TARGET" ]; }
+CUR=$(grep -F "$MARK" "$HOSTS" | awk '{print $1}' | head -1)
+[ -n "$CUR" ] && is_printer "$CUR" && exit 0          # cached IP still valid -> done
+for i in $(seq 1 254); do ping -c1 -W1 "$SUBNET.$i" >/dev/null 2>&1 & done; wait
+FOUND=""
+for ip in $(ip neigh | awk '/REACHABLE|STALE|DELAY/{print $1}' | grep "^$SUBNET\." | sort -u); do
+  is_printer "$ip" && { FOUND="$ip"; break; }
+done
+[ -z "$FOUND" ] && { logger -t track-printer-ip "printer not found"; exit 1; }
+if [ "$FOUND" != "$CUR" ]; then
+  grep -vF "$MARK" "$HOSTS" > /tmp/.hosts.new && printf '%s\tmkspi neptune mkspi.local\t%s\n' "$FOUND" "$MARK" >> /tmp/.hosts.new
+  cat /tmp/.hosts.new > "$HOSTS"; rm -f /tmp/.hosts.new
+  logger -t track-printer-ip "mkspi -> $FOUND"; echo "updated mkspi -> $FOUND"
+fi

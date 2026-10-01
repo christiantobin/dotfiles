@@ -1,0 +1,20 @@
+[Unit]
+Description=T2 MacBook: unload apple-bce + Touch Bar modules around sleep
+Before=sleep.target
+StopWhenUnneeded=yes
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+# --- before sleep: drop the modules that gate T2 suspend (apple_bce last) ---
+ExecStart=-/usr/bin/rmmod -f appletbdrm
+ExecStart=-/usr/bin/rmmod -f hid_appletb_kbd
+ExecStart=-/usr/bin/rmmod -f hid_appletb_bl
+ExecStart=-/usr/bin/rmmod -f apple_bce
+# --- after resume: reload, letting apple_bce's VHCI re-enumerate the Touch Bar
+#     USB on its own (a settle delay before appletbdrm binds). NO manual
+#     bConfigurationValue toggle -- that wedged the USB (echo 1 timed out). ---
+ExecStop=-/bin/sh -c 'modprobe apple_bce; sleep 3; modprobe hid_appletb_bl; modprobe hid_appletb_kbd; modprobe appletbdrm'
+
+[Install]
+WantedBy=sleep.target

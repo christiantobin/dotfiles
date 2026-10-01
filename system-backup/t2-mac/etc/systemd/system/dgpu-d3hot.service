@@ -1,0 +1,15 @@
+[Unit]
+Description=Put driverless AMD dGPU (and its HDMI audio fn) into D3hot to stop iGPU power clamp
+# amdgpu is blacklisted (boot race, 2026-06-16). With no driver the dGPU boots
+# in D0, drains the shared power budget, and firmware clamps the iGPU
+# (req>>act MHz) => compositor lag. D3hot via PMCSR cuts the drain.
+# Remove this unit if amdgpu is ever re-enabled.
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/setpci -s 0000:03:00.0 CAP_PM+4.b=03
+ExecStart=-/usr/bin/setpci -s 0000:03:00.1 CAP_PM+4.b=03
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
